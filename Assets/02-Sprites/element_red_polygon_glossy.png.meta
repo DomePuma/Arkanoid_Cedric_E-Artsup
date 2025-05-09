@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      element_red_polygon_glossy_0: -6679259353024727415
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

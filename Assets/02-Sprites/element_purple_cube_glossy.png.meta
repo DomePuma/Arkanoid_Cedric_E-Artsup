@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      element_purple_cube_glossy_0: 122523791220870554
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

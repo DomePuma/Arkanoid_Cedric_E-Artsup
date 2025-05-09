@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef00bcf0249d9234689ca6d217966301, type: 3}
+  m_Name: BrickFactoryData
+  m_EditorClassIdentifier: 
+  _standardBrickPrefabList:
+  - {fileID: 3389033757112315681, guid: cc0121c63206d29409078f634ac8e348, type: 3}
+  - {fileID: 545877896279097907, guid: e127f2d17a17ed243ab89411ecf6ac07, type: 3}
+  - {fileID: 6323701483061008264, guid: d7b38b1bfe5a41c47b462763be0adc44, type: 3}
+  - {fileID: 3149968486119322084, guid: 03ce74f181cae584e9d25af38a18a01a, type: 3}
+  - {fileID: 2469789303437441727, guid: 54099811ac1ae0d48bb905817d287add, type: 3}
+  - {fileID: 1103519360256420398, guid: f333f60d3263dce42863870df3b45133, type: 3}
+  _bonusBrickPrefabList:
+  - {fileID: 9104152762430296968, guid: 38117ba65ecbba54791e6f6adf80df8e, type: 3}
+  - {fileID: 3738657376703176357, guid: 22032adaf609b2046933d454d4683c50, type: 3}
+  - {fileID: 7381670443676337328, guid: d5f3bd083e8e4804bb7ba5640b06250e, type: 3}
+  - {fileID: 5378492453772001802, guid: ad9d88d232d965c47a5504c52fe55901, type: 3}
+  - {fileID: 4015980758631480868, guid: 8805f8f63006f7b4cba9a950abf76702, type: 3}
+  - {fileID: 4372304142217357715, guid: 06cb8817747cdca45957816916ad06c4, type: 3}
+  _unbreakableBrickPrefab: {fileID: 7970267593342707086, guid: 5bea849b778b95c45b26e3c774cf66a4, type: 3}
