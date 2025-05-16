@@ -179,6 +179,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rows: 5
   _columns: 10
+  _startOffset: {x: -4, y: 4}
+  _brickHeight: 0.5
+  _brickWidth: 0.7
 --- !u!1 &1252959927
 GameObject:
   m_ObjectHideFlags: 0

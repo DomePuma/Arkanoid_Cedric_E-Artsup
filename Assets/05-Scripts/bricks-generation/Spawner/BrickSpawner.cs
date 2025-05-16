@@ -6,12 +6,19 @@ namespace BrickBreaker.Spawning
 {
     public class BrickSpawner : MonoBehaviour
     {
-        [Header("Brick Layout")]
-        [SerializeField] private int _rows = 5;
-        [SerializeField] private int _columns = 10;
+        [Header("Layout Configuration")]
+        [SerializeField] private int _rows = 6;
+        [SerializeField] private int _columns = 13;
+        [SerializeField] private Vector2 _startOffset = new Vector2(-6f, 4f);
+        [SerializeField] private float _brickHeight = 0.5f;
+        [SerializeField] private float _brickWidth = 1f;
 
-        private float _brickHeight = 0.5f;
-        private Vector2 startOffset = new Vector2(-4.5f, 3f);
+        private IBrickLayoutStrategy _layoutStrategy;
+
+        private void Awake()
+        {
+            _layoutStrategy = new ArkanoidLayoutStrategy();
+        }
 
         private void Start()
         {
@@ -20,26 +27,26 @@ namespace BrickBreaker.Spawning
 
         private void SpawnBricks()
         {
+            BrickType[,] layout = _layoutStrategy.GenerateLayout(_rows, _columns);
+
             for (int row = 0; row < _rows; row++)
             {
                 for (int col = 0; col < _columns; col++)
                 {
-                    Vector3 position = new Vector3(
-                        startOffset.x + col,
-                        startOffset.y - row * _brickHeight,
-                        0f
-                    );
+                    BrickType type = layout[row, col];
 
-                    BrickType type = GetBrickTypeForPosition(row, col);
-                    BrickFactory.CreateBrick(type, position);
+                    if (type == BrickType.Standard || type == BrickType.Unbreakable || type == BrickType.Bonus)
+                    {
+                        Vector3 position = new Vector3(
+                            _startOffset.x + col * _brickWidth,
+                            _startOffset.y - row * _brickHeight,
+                            0f
+                        );
+
+                        BrickFactory.CreateBrick(type, position);
+                    }
                 }
             }
-        }
-
-        private BrickType GetBrickTypeForPosition(int row, int col)
-        {
-            if (row == 0) return BrickType.Unbreakable;
-            return BrickType.Standard;
         }
     }
 }
