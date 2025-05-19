@@ -11,8 +11,9 @@ namespace Player
 
         private void Start()
         {
-            _playerHalfWidth = GetComponent<SpriteRenderer>().bounds.extents.x;
-            _playerHalfHeight = GetComponent<SpriteRenderer>().bounds.extents.y;
+            SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+            _playerHalfWidth = spriteRenderer.bounds.extents.x;
+            _playerHalfHeight = spriteRenderer.bounds.extents.y;
             _mainCamera = Camera.main;
         }
 
