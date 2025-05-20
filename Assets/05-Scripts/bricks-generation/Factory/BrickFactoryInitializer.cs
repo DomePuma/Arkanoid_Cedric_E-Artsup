@@ -4,11 +4,11 @@ namespace BrickBreaker.Brick.Factory
 {
     public class BrickFactoryInitializer : MonoBehaviour
     {
-        [SerializeField] private BrickFactoryData _config;
+        [SerializeField] private BrickFactoryData _brickFactoryDataInstance;
 
         private void Awake()
         {
-            BrickFactory.Initialize(_config, transform);
+            BrickFactory.Initialize(_brickFactoryDataInstance, transform);
         }
     }
 }

@@ -23,41 +23,29 @@ namespace BrickBreaker.Brick.Factory
             _container = container;
         }
 
-        public static GameObject CreateBrick(BrickType type, Vector3 position)
+        public static GameObject CreateBrick(BrickType type, Vector3 position, int index = -1)
         {
             GameObject prefab = null;
 
             switch (type)
             {
                 case BrickType.Standard:
-                    prefab = GetRandomPrefab(_standardPrefabs);
-
-                    if (_standardPrefabs == null || _standardPrefabs.Count == 0)
-                    {
-                        Debug.LogError("No standard brick prefabs configured.");
-                        return null;
-                    }
+                    prefab = GetPrefabByIndex(_standardPrefabs, index);
                     break;
 
                 case BrickType.Bonus:
-                    prefab = GetRandomPrefab(_bonusPrefabs);
-
-                    if (_bonusPrefabs == null || _bonusPrefabs.Count == 0)
-                    {
-                        Debug.LogError("No bonus brick prefabs configured.");
-                        return null;
-                    }
+                    prefab = GetPrefabByIndex(_bonusPrefabs, index);
                     break;
 
                 default:
                     _singlePrefabMap.TryGetValue(type, out prefab);
-
-                    if (!_singlePrefabMap.TryGetValue(type, out prefab) || prefab == null)
-                    {
-                        Debug.LogError("No prefab for type: " + type);
-                        return null;
-                    }
                     break;
+            }
+
+            if (prefab == null)
+            {
+                Debug.LogError("No prefab found for type: " + type);
+                return null;
             }
 
             GameObject brick = Object.Instantiate(prefab, position, Quaternion.identity);
@@ -66,13 +54,16 @@ namespace BrickBreaker.Brick.Factory
             return brick;
         }
 
-        private static GameObject GetRandomPrefab(List<GameObject> prefabs)
+        private static GameObject GetPrefabByIndex(List<GameObject> prefabs, int index)
         {
             if (prefabs == null || prefabs.Count == 0)
             {
                 Debug.LogError("Prefab list is empty or not assigned.");
                 return null;
             }
+
+            if (index >= 0 && index < prefabs.Count)
+                return prefabs[index];
 
             return prefabs[Random.Range(0, prefabs.Count)];
         }
