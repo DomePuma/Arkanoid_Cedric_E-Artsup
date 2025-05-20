@@ -10,14 +10,14 @@ namespace BrickBreaker.Brick.Factory
         private static Dictionary<BrickType, GameObject> _singlePrefabMap;
         private static Transform _container;
 
-        public static void Initialize(BrickFactoryData config, Transform container)
+        public static void Initialize(BrickFactoryData brickFactoryDataInstance, Transform container)
         {
-            _standardPrefabs = config.StandardBrickPrefabList;
-            _bonusPrefabs = config.BonusBrickPrefabList;
+            _standardPrefabs = brickFactoryDataInstance.StandardBrickPrefabList;
+            _bonusPrefabs = brickFactoryDataInstance.BonusBrickPrefabList;
 
             _singlePrefabMap = new Dictionary<BrickType, GameObject>
         {
-            { BrickType.Unbreakable, config.UnbreakableBrickPrefab },
+            { BrickType.Unbreakable, brickFactoryDataInstance.UnbreakableBrickPrefab },
         };
 
             _container = container;
