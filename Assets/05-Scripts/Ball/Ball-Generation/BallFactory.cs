@@ -15,19 +15,19 @@ namespace BrickBreaker.Ball.Factory
             _multiBallPrefab = config.MultiBallPrefab;
         }
 
-        public static void CreateBrick(BallType type, Vector3 position)
+        public static void CreateBall(BallType type, Vector3 position)
         {
-            GameObject prefab = null;
+            GameObject prefab;
 
             switch (type)
             {
-                case BallType.Base:
-                    prefab = _baseBallPrefab;
-                    break;
-
                 case BallType.Multi:
                     prefab = _multiBallPrefab;
                     break;
+                default :
+                    prefab = _baseBallPrefab;
+                    break;
+
             }
 
             if (prefab == null)
