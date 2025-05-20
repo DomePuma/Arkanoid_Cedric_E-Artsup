@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f92fe3890f18d2343911401c2252bf44, type: 3}
   m_Name: BallFactoryData
   m_EditorClassIdentifier: 
-  _baseBallPrefab: {fileID: 0}
-  _multiBallPrefab: {fileID: 0}
+  _baseBallPrefab: {fileID: 5609200788809199601, guid: 54779e46a29317f46b6d6ef5adea644c, type: 3}
+  _multiBallPrefab: {fileID: 845870597594381011, guid: 830f1053aef11bb4693f9271c7960e9b, type: 3}
