@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace BrickBreaker.Brick.Type
 {
-    public class StandardBrick : IBrick
+    public class StandardBrick : ABrick
     {
         [SerializeField] protected int _hitPoints = 1;
 

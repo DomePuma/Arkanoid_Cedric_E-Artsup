@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace BrickBreaker.Brick
 {
-    public abstract class IBrick : MonoBehaviour
+    public abstract class ABrick : MonoBehaviour
     {
         public abstract void Hit();
     }

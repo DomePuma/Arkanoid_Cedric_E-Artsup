@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace BrickBreaker.Brick.Type
 {
-    public class UnbreakableBrick : IBrick
+    public class UnbreakableBrick : ABrick
     {
         public override void Hit()
         {
