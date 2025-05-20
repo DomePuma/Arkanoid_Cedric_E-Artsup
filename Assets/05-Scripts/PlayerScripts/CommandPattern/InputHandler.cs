@@ -5,7 +5,7 @@ namespace PlayerCommand
 {
     public class InputHandler : MonoBehaviour
     {
-        [SerializeField] private float moveSpeed = 5f;
+        [SerializeField] private float _moveSpeed = 5f;
 
         private float _moveInput;
 
@@ -13,12 +13,12 @@ namespace PlayerCommand
         {
             if (_moveInput < 0)
             {
-                var moveCommand = new MoveCommand(transform, moveSpeed, Vector3.left);
+                var moveCommand = new MoveCommand(transform, _moveSpeed, Vector3.left);
                 moveCommand.Execute();
             }
             else if (_moveInput > 0)
             {
-                var moveCommand = new MoveCommand(transform, moveSpeed, Vector3.right);
+                var moveCommand = new MoveCommand(transform, _moveSpeed, Vector3.right);
                 moveCommand.Execute();
             }
         }
