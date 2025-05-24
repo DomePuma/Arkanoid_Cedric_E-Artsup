@@ -670,7 +670,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e307a91d83185b45a68835799f9f307, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuMusic: 1
+  _menuMusic: 1
 --- !u!1001 &1747693320
 PrefabInstance:
   m_ObjectHideFlags: 0
