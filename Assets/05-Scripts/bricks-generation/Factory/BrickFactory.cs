@@ -38,7 +38,14 @@ namespace BrickBreaker.Brick.Factory
                     break;
 
                 default:
-                    _singlePrefabMap.TryGetValue(type, out prefab);
+                    if (_singlePrefabMap.TryGetValue(type, out var foundPrefab) && foundPrefab != null)
+                    {
+                        prefab = foundPrefab;
+                    }
+                    else
+                    {
+                        return null;
+                    }
                     break;
             }
 
