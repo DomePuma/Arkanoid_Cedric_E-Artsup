@@ -1215,8 +1215,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5452b4dbb29fc5c489647782eb6b1fee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameSceneName: Level 1
-  optionsSceneName: Options
+  _gameSceneName: GameScene
+  _optionsSceneName: Options
 --- !u!1 &1374212834
 GameObject:
   m_ObjectHideFlags: 0
@@ -1247,7 +1247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e307a91d83185b45a68835799f9f307, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuMusic: 0
+  _menuMusic: 0
 --- !u!4 &1374212836
 Transform:
   m_ObjectHideFlags: 0

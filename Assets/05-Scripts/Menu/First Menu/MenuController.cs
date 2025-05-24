@@ -3,19 +3,19 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuController : MonoBehaviour
 {
-    [SerializeField] private string gameSceneName = "GameScene";
-    [SerializeField] private string optionsSceneName = "OptionsMenuScene";
+    [SerializeField] private string _gameSceneName = "GameScene";
+    [SerializeField] private string _optionsSceneName = "OptionsMenuScene";
 
     public void PlayGame()
     {
-        SceneManager.LoadScene(gameSceneName);
+        SceneManager.LoadScene(_gameSceneName);
     }
 
     public void OpenOptions()
     {
-        if (!SceneManager.GetSceneByName(optionsSceneName).isLoaded)
+        if (!SceneManager.GetSceneByName(_optionsSceneName).isLoaded)
         {
-            SceneManager.LoadScene(optionsSceneName, LoadSceneMode.Additive);
+            SceneManager.LoadScene(_optionsSceneName, LoadSceneMode.Additive);
         }
     }
 

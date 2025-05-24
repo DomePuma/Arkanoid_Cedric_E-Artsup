@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class MenuMusic : MonoBehaviour
 {
-    [SerializeField] private MusicType menuMusic = MusicType.Menu;
+    [SerializeField] private MusicType _menuMusic = MusicType.Menu;
 
     void Start()
     {
         if (AudioManager.Instance != null)
         {
-            AudioManager.Instance.PlayMusic(menuMusic, true);
+            AudioManager.Instance.PlayMusic(_menuMusic, true);
         }
     }
 }
