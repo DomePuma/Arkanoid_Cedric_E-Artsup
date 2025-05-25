@@ -5,7 +5,7 @@ namespace BrickBreaker.Ball.Type
 {
     public class BallBase : ABall
     {
-        public override void Hit(Collision2D collision)
+        public override void Death()
         {
             throw new System.NotImplementedException();
         }
