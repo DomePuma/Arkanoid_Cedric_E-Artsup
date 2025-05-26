@@ -16,7 +16,7 @@ namespace BrickBreaker.Audio.Music
         [SerializeField] private MusicType[] _musicKeyArray;
         [SerializeField] private AudioClip[] _musicClipArray;
 
-        private Dictionary<MusicType, AudioClip> musicDict = new();
+        private Dictionary<MusicType, AudioClip> _musicDict = new();
 
         private void Awake()
         {
@@ -30,8 +30,8 @@ namespace BrickBreaker.Audio.Music
 
             for (int i = 0; i < _musicKeyArray.Length && i < _musicClipArray.Length; i++)
             {
-                if (!musicDict.ContainsKey(_musicKeyArray[i]) && _musicClipArray[i] != null)
-                    musicDict[_musicKeyArray[i]] = _musicClipArray[i];
+                if (!_musicDict.ContainsKey(_musicKeyArray[i]) && _musicClipArray[i] != null)
+                    _musicDict[_musicKeyArray[i]] = _musicClipArray[i];
             }
 
             SceneManager.sceneLoaded += OnSceneLoaded;
@@ -80,7 +80,7 @@ namespace BrickBreaker.Audio.Music
                 return;
             }
 
-            if (musicDict.TryGetValue(type, out var clip))
+            if (_musicDict.TryGetValue(type, out var clip))
             {
                 _musicSource.clip = clip;
                 _musicSource.loop = loop;
