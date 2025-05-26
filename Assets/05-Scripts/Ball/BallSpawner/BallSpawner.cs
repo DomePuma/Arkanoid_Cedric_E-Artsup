@@ -2,12 +2,20 @@ using BrickBreaker.Ball.Factory;
 using BrickBreaker.Ball.Type;
 using UnityEngine;
 
-public class BallSpawner : MonoBehaviour
+namespace BrickBreaker.Ball.Spawner
 {
-    [SerializeField] private BallType _ballType;
-    [SerializeField] private Transform _ballSpwanPoint;
-    void Start()
+    public class BallSpawner : MonoBehaviour
     {
-        BallFactory.CreateBall(_ballType, _ballSpwanPoint.position);       
+        [SerializeField] private BallType _ballType;
+        [SerializeField] private Transform _ballSpwanPoint;
+        void Start()
+        {
+            SpawnBall();
+        }
+
+        public void SpawnBall()
+        {
+            BallFactory.CreateBall(_ballType, _ballSpwanPoint.position);
+        }
     }
 }

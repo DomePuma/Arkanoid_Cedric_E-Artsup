@@ -1,12 +1,14 @@
-using BrickBreaker.Ball.Factory;
 using UnityEngine;
 
-public class BallFactoryInitialize : MonoBehaviour
+namespace BrickBreaker.Ball.Factory
 {
-    [SerializeField] private BallFactoryData _ballFactoryData;
-
-    private void Awake()
+    public class BallFactoryInitialize : MonoBehaviour
     {
-        BallFactory.Initialize(_ballFactoryData);
+        [SerializeField] private BallFactoryData _ballFactoryData;
+
+        private void Awake()
+        {
+            BallFactory.Initialize(_ballFactoryData);
+        }
     }
 }

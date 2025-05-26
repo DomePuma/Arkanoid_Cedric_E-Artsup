@@ -1,10 +1,9 @@
 using UnityEngine;
-using System.Collections.Generic;
 using BrickBreaker.Ball.Type;
 
 namespace BrickBreaker.Ball.Factory
 {
-    public class BallFactory
+    public static class BallFactory
     {
         private static GameObject _baseBallPrefab;
         private static GameObject _multiBallPrefab;

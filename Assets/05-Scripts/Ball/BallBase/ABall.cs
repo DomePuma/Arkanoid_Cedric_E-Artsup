@@ -20,11 +20,14 @@ namespace BrickBreaker.Ball.Base
 
         private void Hit(Collision2D collision)
         {
-            //Vector2 directionNormalized = new Vector2(hitRacketPart(transform.position, collision.transform.position, collision.collider.bounds.size.x), 1f).normalized;
-            //_rigidbody2D.linearVelocity = directionNormalized * _speed;
-        }
+            if (collision.gameObject.layer == 4) //faudra changer ça en le vrai Layer du joueur
+            {
+                Vector2 directionNormalized = new Vector2(HitRacketPart(transform.position, collision.transform.position, collision.collider.bounds.size.x), 1f).normalized;
+                _rigidbody2D.linearVelocity = directionNormalized * _speed;
 
-        private float hitRacketPart(Vector2 ballPos, Vector2 racketPos, float racketWidth)
+            }
+        }
+        private float HitRacketPart(Vector2 ballPos, Vector2 racketPos, float racketWidth)
 	    {
 		    return (ballPos.x - racketPos.x) / racketWidth;
 	    }
