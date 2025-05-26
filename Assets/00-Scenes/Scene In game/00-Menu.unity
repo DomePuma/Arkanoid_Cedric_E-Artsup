@@ -1217,6 +1217,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameSceneName: Level 1
   _optionsSceneName: 01-Options
+  _creditsSceneName: 03-Credits
 --- !u!1 &1374212834
 GameObject:
   m_ObjectHideFlags: 0
@@ -1700,7 +1701,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1242626631}
         m_TargetAssemblyTypeName: MainMenuController, Assembly-CSharp
-        m_MethodName: OpenOptions
+        m_MethodName: OpenCredits
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

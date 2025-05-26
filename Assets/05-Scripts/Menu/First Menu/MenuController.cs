@@ -3,8 +3,9 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuController : MonoBehaviour
 {
-    [SerializeField] private string _gameSceneName = "GameScene";
-    [SerializeField] private string _optionsSceneName = "OptionsMenuScene";
+    [SerializeField] private string _gameSceneName;
+    [SerializeField] private string _optionsSceneName;
+    [SerializeField] private string _creditsSceneName;
 
     public void PlayGame()
     {
@@ -16,6 +17,14 @@ public class MainMenuController : MonoBehaviour
         if (!SceneManager.GetSceneByName(_optionsSceneName).isLoaded)
         {
             SceneManager.LoadScene(_optionsSceneName, LoadSceneMode.Additive);
+        }
+    }
+
+    public void OpenCredits()
+    {
+        if (!SceneManager.GetSceneByName(_creditsSceneName).isLoaded)
+        {
+            SceneManager.LoadScene(_creditsSceneName, LoadSceneMode.Additive);
         }
     }
 

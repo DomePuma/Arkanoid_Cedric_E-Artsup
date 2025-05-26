@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class OptionsSceneController : MonoBehaviour
+public class CloseSceneAdditiveSceneController : MonoBehaviour
 {
-    public void CloseOptionsMenu()
+    public void CloseSceneAdditive()
     {
         Scene currentScene = gameObject.scene;
         SceneManager.UnloadSceneAsync(currentScene);

@@ -563,8 +563,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1833191528}
-        m_TargetAssemblyTypeName: OptionsSceneController, Assembly-CSharp
-        m_MethodName: CloseOptionsMenu
+        m_TargetAssemblyTypeName: CloseSceneAdditiveSceneController, Assembly-CSharp
+        m_MethodName: CloseSceneAdditive
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
