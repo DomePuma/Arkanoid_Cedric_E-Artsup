@@ -1,0 +1,28 @@
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace ScoreObserverPattern
+{
+    public abstract class ObserverSubject : MonoBehaviour
+    {
+        private List<IObserver> _observers = new List<IObserver>();
+
+        public void AddObservers(IObserver observer)
+        {
+            _observers.Add(observer);
+        }
+
+        public void RemoveObservers(IObserver observer) 
+        { 
+            _observers.Remove(observer); 
+        }
+
+        protected void NotifyObservers()
+        {
+            foreach (IObserver observer in _observers)
+            {
+                observer.OnNotify();
+            }
+        }
+    }
+}
