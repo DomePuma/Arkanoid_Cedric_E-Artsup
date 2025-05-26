@@ -1,38 +1,41 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MainMenuController : MonoBehaviour
+namespace BrickBreaker.Menu.ChangeScene
 {
-    [SerializeField] private string _gameSceneName;
-    [SerializeField] private string _optionsSceneName;
-    [SerializeField] private string _creditsSceneName;
-
-    public void PlayGame()
+    public class MainMenuController : MonoBehaviour
     {
-        SceneManager.LoadScene(_gameSceneName);
-    }
+        [SerializeField] private string _gameSceneName;
+        [SerializeField] private string _optionsSceneName;
+        [SerializeField] private string _creditsSceneName;
 
-    public void OpenOptions()
-    {
-        if (!SceneManager.GetSceneByName(_optionsSceneName).isLoaded)
+        public void PlayGame()
         {
-            SceneManager.LoadScene(_optionsSceneName, LoadSceneMode.Additive);
+            SceneManager.LoadScene(_gameSceneName);
         }
-    }
 
-    public void OpenCredits()
-    {
-        if (!SceneManager.GetSceneByName(_creditsSceneName).isLoaded)
+        public void OpenOptions()
         {
-            SceneManager.LoadScene(_creditsSceneName, LoadSceneMode.Additive);
+            if (!SceneManager.GetSceneByName(_optionsSceneName).isLoaded)
+            {
+                SceneManager.LoadScene(_optionsSceneName, LoadSceneMode.Additive);
+            }
         }
-    }
 
-    public void QuitGame()
-    {
-        Application.Quit();
-        #if UNITY_EDITOR
+        public void OpenCredits()
+        {
+            if (!SceneManager.GetSceneByName(_creditsSceneName).isLoaded)
+            {
+                SceneManager.LoadScene(_creditsSceneName, LoadSceneMode.Additive);
+            }
+        }
+
+        public void QuitGame()
+        {
+            Application.Quit();
+#if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
-        #endif
+#endif
+        }
     }
 }

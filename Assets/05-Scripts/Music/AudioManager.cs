@@ -1,95 +1,99 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Collections.Generic;
+using BrickBreaker.Audio.Music.Type;
 
-public class AudioManager : MonoBehaviour
+namespace BrickBreaker.Audio.Music
 {
-    public static AudioManager Instance { get; private set; }
-
-    [Header("Audio Source")]
-    [SerializeField] private AudioSource _musicSource;
-
-    [Header("Clips par type")]
-    [SerializeField] private MusicType[] _musicKeyArray;
-    [SerializeField] private AudioClip[] _musicClipArray;
-
-    private Dictionary<MusicType, AudioClip> musicDict = new();
-
-    private void Awake()
+    public class AudioManager : MonoBehaviour
     {
-        if (Instance != null && Instance != this)
+        public static AudioManager Instance { get; private set; }
+
+        [Header("Audio Source")]
+        [SerializeField] private AudioSource _musicSource;
+
+        [Header("Clips par type")]
+        [SerializeField] private MusicType[] _musicKeyArray;
+        [SerializeField] private AudioClip[] _musicClipArray;
+
+        private Dictionary<MusicType, AudioClip> musicDict = new();
+
+        private void Awake()
         {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-
-        for (int i = 0; i < _musicKeyArray.Length && i < _musicClipArray.Length; i++)
-        {
-            if (!musicDict.ContainsKey(_musicKeyArray[i]) && _musicClipArray[i] != null)
-                musicDict[_musicKeyArray[i]] = _musicClipArray[i];
-        }
-
-        SceneManager.sceneLoaded += OnSceneLoaded;
-
-        FindAndSetMusicSource();
-    }
-
-    private void OnDestroy()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        FindAndSetMusicSource();
-    }
-
-    private void FindAndSetMusicSource()
-    {
-        MenuMusic menuMusic = FindFirstObjectByType<MenuMusic>();
-
-        if (menuMusic != null)
-        {
-            AudioSource source = menuMusic.GetComponent<AudioSource>();
-            if (source != null)
+            if (Instance != null && Instance != this)
             {
-                _musicSource = source;
-                Debug.Log("AudioSource mis à jour depuis MenuMusic dans la scène " + SceneManager.GetActiveScene().name);
+                Destroy(gameObject);
+                return;
+            }
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+
+            for (int i = 0; i < _musicKeyArray.Length && i < _musicClipArray.Length; i++)
+            {
+                if (!musicDict.ContainsKey(_musicKeyArray[i]) && _musicClipArray[i] != null)
+                    musicDict[_musicKeyArray[i]] = _musicClipArray[i];
+            }
+
+            SceneManager.sceneLoaded += OnSceneLoaded;
+
+            FindAndSetMusicSource();
+        }
+
+        private void OnDestroy()
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            FindAndSetMusicSource();
+        }
+
+        private void FindAndSetMusicSource()
+        {
+            MenuMusic menuMusic = FindFirstObjectByType<MenuMusic>();
+
+            if (menuMusic != null)
+            {
+                AudioSource source = menuMusic.GetComponent<AudioSource>();
+                if (source != null)
+                {
+                    _musicSource = source;
+                    Debug.Log("AudioSource mis à jour depuis MenuMusic dans la scène " + SceneManager.GetActiveScene().name);
+                }
+                else
+                {
+                    Debug.LogWarning("AudioSource non trouvé sur MenuMusic GameObject.");
+                }
             }
             else
             {
-                Debug.LogWarning("AudioSource non trouvé sur MenuMusic GameObject.");
+                Debug.LogWarning("MenuMusic non trouvé en scène " + SceneManager.GetActiveScene().name);
             }
         }
-        else
+
+        public void PlayMusic(MusicType type, bool loop = true)
         {
-            Debug.LogWarning("MenuMusic non trouvé en scène " + SceneManager.GetActiveScene().name);
+            if (_musicSource == null)
+            {
+                Debug.LogWarning("AudioSource non assigné. Impossible de jouer la musique.");
+                return;
+            }
+
+            if (musicDict.TryGetValue(type, out var clip))
+            {
+                _musicSource.clip = clip;
+                _musicSource.loop = loop;
+                _musicSource.Play();
+            }
+            else
+            {
+                Debug.LogWarning($"Musique '{type}' non trouvée.");
+            }
         }
+
+        public void StopMusic() => _musicSource?.Stop();
+        public void PauseMusic() => _musicSource?.Pause();
+        public void ResumeMusic() => _musicSource?.UnPause();
     }
-
-    public void PlayMusic(MusicType type, bool loop = true)
-    {
-        if (_musicSource == null)
-        {
-            Debug.LogWarning("AudioSource non assigné. Impossible de jouer la musique.");
-            return;
-        }
-
-        if (musicDict.TryGetValue(type, out var clip))
-        {
-            _musicSource.clip = clip;
-            _musicSource.loop = loop;
-            _musicSource.Play();
-        }
-        else
-        {
-            Debug.LogWarning($"Musique '{type}' non trouvée.");
-        }
-    }
-
-    public void StopMusic() => _musicSource?.Stop();
-    public void PauseMusic() => _musicSource?.Pause();
-    public void ResumeMusic() => _musicSource?.UnPause();
 }

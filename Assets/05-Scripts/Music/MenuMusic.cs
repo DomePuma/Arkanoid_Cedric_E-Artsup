@@ -1,14 +1,18 @@
 using UnityEngine;
+using BrickBreaker.Audio.Music.Type;
 
-public class MenuMusic : MonoBehaviour
+namespace BrickBreaker.Audio.Music
 {
-    [SerializeField] private MusicType _menuMusic = MusicType.Menu;
-
-    void Start()
+    public class MenuMusic : MonoBehaviour
     {
-        if (AudioManager.Instance != null)
+        [SerializeField] private MusicType _menuMusic = MusicType.Menu;
+
+        void Start()
         {
-            AudioManager.Instance.PlayMusic(_menuMusic, true);
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlayMusic(_menuMusic, true);
+            }
         }
     }
 }

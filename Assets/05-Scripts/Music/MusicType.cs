@@ -1,7 +1,10 @@
-public enum MusicType
+namespace BrickBreaker.Audio.Music.Type
 {
-    Menu,
-    Ingame,
-    Victory,
-    GameOver
+    public enum MusicType
+    {
+        Menu,
+        Ingame,
+        Victory,
+        GameOver
+    }
 }
