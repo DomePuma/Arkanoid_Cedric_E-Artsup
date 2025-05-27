@@ -7,12 +7,12 @@ namespace ScoreObserverPattern
     {
         private List<IObserver> _observers = new List<IObserver>();
 
-        public void AddObservers(IObserver observer)
+        public void AddObserver(IObserver observer)
         {
             _observers.Add(observer);
         }
 
-        public void RemoveObservers(IObserver observer) 
+        public void RemoveObserver(IObserver observer) 
         { 
             _observers.Remove(observer); 
         }

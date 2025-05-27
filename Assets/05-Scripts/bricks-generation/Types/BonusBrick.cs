@@ -6,6 +6,11 @@ namespace BrickBreaker.Brick.Type
     {
         [SerializeField] private GameObject _bonusPrefab;
 
+        private void Start()
+        {
+            BrickDestroyNotifier.Instance?.NotifyBrickDestroyed(); // Notify score
+        }
+
         protected override void OnDestroyBrick()
         {
             if (_bonusPrefab != null)

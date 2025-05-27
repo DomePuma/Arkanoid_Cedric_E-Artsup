@@ -6,6 +6,11 @@ namespace BrickBreaker.Brick.Type
     {
         [SerializeField] protected int _hitPoints = 1;
 
+        private void Start()
+        {
+            BrickDestroyNotifier.Instance?.NotifyBrickDestroyed(); // Notify score
+        }
+
         public override void Hit()
         {
             _hitPoints--;
@@ -18,6 +23,7 @@ namespace BrickBreaker.Brick.Type
 
         protected virtual void OnDestroyBrick()
         {
+            BrickDestroyNotifier.Instance?.NotifyBrickDestroyed(); // Notify score
             Destroy(gameObject);
         }
     }
