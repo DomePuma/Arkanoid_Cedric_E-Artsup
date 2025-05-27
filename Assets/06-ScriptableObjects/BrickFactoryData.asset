@@ -26,4 +26,4 @@ MonoBehaviour:
   - {fileID: 5378492453772001802, guid: ad9d88d232d965c47a5504c52fe55901, type: 3}
   - {fileID: 4015980758631480868, guid: 8805f8f63006f7b4cba9a950abf76702, type: 3}
   - {fileID: 4372304142217357715, guid: 06cb8817747cdca45957816916ad06c4, type: 3}
-  _unbreakableBrickPrefab: {fileID: 7970267593342707086, guid: 5bea849b778b95c45b26e3c774cf66a4, type: 3}
+  _unbreakableBrickPrefab: {fileID: 0}

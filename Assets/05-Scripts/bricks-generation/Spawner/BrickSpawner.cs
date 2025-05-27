@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using BrickBreaker.Brick.Factory;
 using BrickBreaker.Brick;
+using BrickBreaker.Spawning.Layout;
 
 namespace BrickBreaker.Spawning
 {

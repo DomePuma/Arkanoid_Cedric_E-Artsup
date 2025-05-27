@@ -1,6 +1,6 @@
 using BrickBreaker.Brick;
 
-namespace BrickBreaker.Spawning
+namespace BrickBreaker.Spawning.Layout
 {
     public interface IBrickLayoutStrategy
     {
