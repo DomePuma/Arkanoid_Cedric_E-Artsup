@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace ScoreObserverPattern
 {
-    [CreateAssetMenu(fileName = "ScoreData", menuName = "Scriptable Object/Score Data")]
+    [CreateAssetMenu(fileName = "ScoreData", menuName = "Scriptable Object/ScoreObserver Data")]
     public class ScoreData : ScriptableObject
     {
         [SerializeField] private int _score;

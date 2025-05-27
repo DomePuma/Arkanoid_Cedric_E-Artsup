@@ -7,6 +7,6 @@ public class ScoreUI : MonoBehaviour
 
     public void UpdateScoreUI(int score)
     {
-        _scoreText.text = $"Score: {score}";
+        _scoreText.text = $"ScoreObserver: {score}";
     }
 }
