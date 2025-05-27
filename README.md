@@ -82,7 +82,7 @@ All bricks inherit from `ABrick`, which defines the common interface (`Hit()` me
 ## Technologies
 
 - Unity 6000.0.27f1
-- C# (using Unity coding conventions)
+- C# (Eartsup class - Scripting conventions) https://pastebin.com/ZbTgSgNx
 - Unity Input System
 - TextMeshPro (TMP)
 
