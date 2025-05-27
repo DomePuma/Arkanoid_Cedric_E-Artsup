@@ -1,13 +1,16 @@
-using System;
 using UnityEngine;
 using ScoreObserverPattern;
 
 public class Score : MonoBehaviour, IObserver
 {
-    [SerializeField] ObserverSubject _playerSubject;
+    [SerializeField] private ObserverSubject _playerSubject;
+    [SerializeField] private ScoreSystem _scoreSystem;
+    [SerializeField] private int _scorePerBrick = 100;
+
     public void OnNotify()
     {
-        Debug.Log("Score is NOTIFIED");
+        //Debug.Log("Score is NOTIFIED");
+        _scoreSystem.AddScore(_scorePerBrick);
     }
 
     private void OnEnable()
