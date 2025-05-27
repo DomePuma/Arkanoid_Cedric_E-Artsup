@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbbcd5d0e2fa23a468cf26ca0c01faf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ballType: 1
+  _ballType: 0
   _ballSpwanPoint: {fileID: 1415569979}
 --- !u!4 &251781291
 Transform:
