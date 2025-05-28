@@ -76,6 +76,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BallBase
       objectReference: {fileID: 0}
+    - target: {fileID: 7737230197746429829, guid: 0dc80d0c7bc8b2e40b2d5e214d119042, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -106,6 +110,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 4.55
   _playerTag: Player
+  _collisionMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  _detectionRadius: 0.1
 --- !u!212 &1793967764500062243
 SpriteRenderer:
   m_ObjectHideFlags: 0

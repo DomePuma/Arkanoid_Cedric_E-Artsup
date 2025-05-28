@@ -6,7 +6,6 @@ namespace BrickBreaker.Ball.Type
     {
         public override void Death()
         {
-            //Jsp si y a déjà un collider pour détruire la balle quand elle tombe qui a déjà était fait, du coup je laisse la fonction ici
             Destroy(gameObject);
             //Ici rajouter les fonctions pour regénérer une balle
         }

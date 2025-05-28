@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BrickBreaker.Brick.Factory;
 using BrickBreaker.Brick;
 using BrickBreaker.Spawning.Layout;
+using System;
 
 namespace BrickBreaker.Spawning
 {
@@ -62,7 +63,7 @@ namespace BrickBreaker.Spawning
             int totalBonus = Mathf.Min(_maxBonusPerRow, standardPositions.Count);
             for (int i = 0; i < totalBonus; i++)
             {
-                int randomIndex = Random.Range(i, standardPositions.Count);
+                int randomIndex = UnityEngine.Random.Range(i, standardPositions.Count);
                 (standardPositions[i], standardPositions[randomIndex]) = (standardPositions[randomIndex], standardPositions[i]);
                 Vector2Int pos = standardPositions[i];
                 layout[pos.x, pos.y] = BrickType.Bonus;

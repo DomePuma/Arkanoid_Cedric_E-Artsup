@@ -1,3 +1,4 @@
+using BrickBreaker.Brick;
 using BrickBreaker.Utils;
 using UnityEngine;
 
@@ -9,6 +10,8 @@ namespace BrickBreaker.Ball.Base
         [Header("Ball Settings")]
         [SerializeField] protected float _speed = 5f;
         [SerializeField] protected string _playerTag = "Player";
+        [SerializeField] private LayerMask _collisionMask;
+        [SerializeField] private float _detectionRadius = 0.1f;
 
         protected Vector2 _direction = Vector2.up;
 
@@ -16,6 +19,7 @@ namespace BrickBreaker.Ball.Base
         {
             Move();
             HandleScreenBounce();
+            DetectCollisions();
         }
 
         private void Move()
@@ -48,15 +52,30 @@ namespace BrickBreaker.Ball.Base
             transform.position = pos;
         }
 
-        private void OnTriggerEnter2D(Collider2D collider)
+        private void DetectCollisions()
         {
-            if (collider.CompareTag(_playerTag))
+            Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, _detectionRadius, _collisionMask);
+
+            foreach (Collider2D hit in hits)
             {
-                ReflectFromPaddle(collider);
-            }
-            else if (collider.CompareTag("Brick") || collider.CompareTag("Wall"))
-            {
-                ReflectFromObject(collider);
+                if (hit.CompareTag(_playerTag))
+                {
+                    ReflectFromPaddle(hit);
+                }
+                else if (hit.CompareTag("Brick"))
+                {
+                    ABrick brick = hit.GetComponent<ABrick>();
+
+                    if (brick != null)
+                    {
+                        brick.Hit();
+                        ReflectFromObject(hit);
+                    }
+                }
+                else if (hit.CompareTag("Wall"))
+                {
+                    ReflectFromObject(hit);
+                }
             }
         }
 
@@ -72,8 +91,33 @@ namespace BrickBreaker.Ball.Base
 
         private void ReflectFromObject(Collider2D obj)
         {
-            Vector2 normal = (transform.position - obj.transform.position).normalized;
+            Vector2 contactDirection = (Vector2)transform.position - (Vector2)obj.transform.position;
+            Bounds bounds = obj.bounds;
+
+            float dx = Mathf.Abs(contactDirection.x) - bounds.extents.x;
+            float dy = Mathf.Abs(contactDirection.y) - bounds.extents.y;
+
+            Vector2 normal;
+
+            if (dx > dy)
+            {
+                // Rebond horizontal
+                normal = new Vector2(Mathf.Sign(contactDirection.x), 0);
+            }
+            else
+            {
+                // Rebond vertical
+                normal = new Vector2(0, Mathf.Sign(contactDirection.y));
+            }
+
+            // Réflexion de base
             _direction = Vector2.Reflect(_direction, normal).normalized;
+
+            /* Ajoute une petite variation aléatoire à la direction
+            (ça permet d'éviter que la balle rebondisse de façon parfaitement verticale ou horizontale) */
+            float noise = 0.1f;
+            _direction += new Vector2(Random.Range(-noise, noise), Random.Range(-noise, noise));
+            _direction = _direction.normalized;
         }
 
         public abstract void Death();

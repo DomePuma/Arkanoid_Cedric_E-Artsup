@@ -4,7 +4,7 @@ namespace BrickBreaker.Brick.Type
 {
     public class StandardBrick : ABrick
     {
-        [SerializeField] protected int _hitPoints = 1;
+        [SerializeField] private int _hitPoints = 1;
 
         public override void Hit()
         {
