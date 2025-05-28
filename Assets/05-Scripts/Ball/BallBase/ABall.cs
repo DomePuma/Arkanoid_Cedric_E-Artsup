@@ -1,39 +1,79 @@
+using BrickBreaker.Utils;
 using UnityEngine;
 
 namespace BrickBreaker.Ball.Base
 {
+    [RequireComponent(typeof(Collider2D), typeof(SpriteRenderer))]
     public abstract class ABall : MonoBehaviour
     {
-        [SerializeField] protected float _speed;
-        [SerializeField] protected string _playerTag;
+        [Header("Ball Settings")]
+        [SerializeField] protected float _speed = 5f;
+        [SerializeField] protected string _playerTag = "Player";
 
-        private Vector2 _currentDirection = Vector2.up;
+        protected Vector2 _direction = Vector2.up;
 
-        private void FixedUpdate()
+        private void Update()
         {
-            gameObject.transform.Translate(_currentDirection * _speed * Time.deltaTime);
+            Move();
+            HandleScreenBounce();
         }
 
-        private void Hit(Collision2D collision)
+        private void Move()
         {
-            if (collision.gameObject.tag == _playerTag)
-            {
-                _currentDirection = new Vector2(HitRacketPart(transform.position, collision.transform.position, collision.collider.bounds.size), 1f).normalized;
+            transform.position += (Vector3)(_direction * _speed * Time.deltaTime);
+        }
 
-            }
-            else
+        private void HandleScreenBounce()
+        {
+            Vector2 pos = transform.position;
+
+            if (pos.x <= ScreenBoundsSystem.MinX || pos.x >= ScreenBoundsSystem.MaxX)
             {
-                _currentDirection = Vector2.Reflect(_currentDirection, collision.contacts[0].normal);
+                _direction.x *= -1;
+                pos.x = Mathf.Clamp(pos.x, ScreenBoundsSystem.MinX, ScreenBoundsSystem.MaxX);
+            }
+
+            if (pos.y >= ScreenBoundsSystem.MaxY)
+            {
+                _direction.y *= -1;
+                pos.y = ScreenBoundsSystem.MaxY;
+            }
+
+            if (pos.y <= ScreenBoundsSystem.MinY)
+            {
+                Death();
+                return;
+            }
+
+            transform.position = pos;
+        }
+
+        private void OnTriggerEnter2D(Collider2D collider)
+        {
+            if (collider.CompareTag(_playerTag))
+            {
+                ReflectFromPaddle(collider);
+            }
+            else if (collider.CompareTag("Brick") || collider.CompareTag("Wall"))
+            {
+                ReflectFromObject(collider);
             }
         }
-        private float HitRacketPart(Vector2 ballPos, Vector2 racketPos, Vector2 racketWidth)
-	    {
-		    return (ballPos.x - racketPos.x) / racketWidth.x;
-	    }
 
-        private void OnCollisionEnter2D(Collision2D collision)
+        private void ReflectFromPaddle(Collider2D paddle)
         {
-            Hit(collision);
+            Vector2 ballPos = transform.position;
+            Vector2 paddlePos = paddle.transform.position;
+            float paddleWidth = paddle.bounds.size.x;
+
+            float offset = (ballPos.x - paddlePos.x) / (paddleWidth / 2f);
+            _direction = new Vector2(offset, 1).normalized;
+        }
+
+        private void ReflectFromObject(Collider2D obj)
+        {
+            Vector2 normal = (transform.position - obj.transform.position).normalized;
+            _direction = Vector2.Reflect(_direction, normal).normalized;
         }
 
         public abstract void Death();
