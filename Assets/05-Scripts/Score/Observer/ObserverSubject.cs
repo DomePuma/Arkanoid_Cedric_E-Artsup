@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
+using BrickBreaker.Score.Observer;
 
-namespace ScoreObserverPattern
+namespace BrickBreaker.Score.Subject
 {
     public abstract class ObserverSubject : MonoBehaviour
     {

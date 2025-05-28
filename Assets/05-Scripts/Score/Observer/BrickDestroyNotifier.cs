@@ -1,4 +1,4 @@
-namespace ScoreObserverPattern
+namespace BrickBreaker.Score.Subject
 {
     public class BrickDestroyNotifier : ObserverSubject
     {

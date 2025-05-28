@@ -1,5 +1,5 @@
+using BrickBreaker.Score.Subject;
 using UnityEngine;
-using ScoreObserverPattern;
 
 namespace BrickBreaker.Brick.Type
 {

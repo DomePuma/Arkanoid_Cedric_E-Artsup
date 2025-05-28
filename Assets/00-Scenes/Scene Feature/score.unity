@@ -227,7 +227,6 @@ GameObject:
   m_Component:
   - component: {fileID: 212376031}
   - component: {fileID: 212376033}
-  - component: {fileID: 212376032}
   m_Layer: 0
   m_Name: ScoreSystem
   m_TagString: Untagged
@@ -250,21 +249,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 112394638}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &212376032
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 212376030}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 694555ebf28ad594ca4d5a41e7009b20, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _playerSubject: {fileID: 784972401}
-  _scoreSystem: {fileID: 212376033}
-  _scorePerBrick: 100
 --- !u!114 &212376033
 MonoBehaviour:
   m_ObjectHideFlags: 0

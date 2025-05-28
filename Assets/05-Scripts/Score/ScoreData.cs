@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace ScoreObserverPattern
+namespace BrickBreaker.Score.Data
 {
     [CreateAssetMenu(fileName = "ScoreData", menuName = "Scriptable Object/ScoreObserver Data")]
     public class ScoreData : ScriptableObject

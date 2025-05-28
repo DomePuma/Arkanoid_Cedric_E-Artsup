@@ -1,5 +1,7 @@
+using BrickBreaker.Score.Subject;
 using UnityEngine;
-namespace ScoreObserverPattern
+
+namespace BrickBreaker.Score.Observer
 {
     public class ScoreObserver : MonoBehaviour, IObserver
     {

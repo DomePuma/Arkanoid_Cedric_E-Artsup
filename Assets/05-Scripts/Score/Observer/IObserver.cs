@@ -1,4 +1,4 @@
-namespace ScoreObserverPattern
+namespace BrickBreaker.Score.Observer
 {
     public interface IObserver
     {

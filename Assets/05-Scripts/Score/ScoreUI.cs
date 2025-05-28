@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace ScoreObserverPattern
+namespace BrickBreaker.Score.UI
 {
     public class ScoreUI : MonoBehaviour
     {
