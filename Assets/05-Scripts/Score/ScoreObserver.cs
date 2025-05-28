@@ -3,7 +3,6 @@ namespace ScoreObserverPattern
 {
     public class ScoreObserver : MonoBehaviour, IObserver
     {
-        [SerializeField] private ObserverSubject _observerSubject;
         [SerializeField] private ScoreSystem _scoreSystem;
         [SerializeField] private int _scorePerBrick = 100;
 
