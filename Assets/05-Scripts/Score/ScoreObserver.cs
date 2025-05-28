@@ -14,12 +14,12 @@ namespace ScoreObserverPattern
 
         private void OnEnable()
         {
-            _observerSubject.AddObserver(this);
+            BrickDestroyNotifier.Instance.AddObserver(this);
         }
 
         private void OnDisable()
         {
-            _observerSubject.RemoveObserver(this);
+            BrickDestroyNotifier.Instance.RemoveObserver(this);
         }
     }
 }
