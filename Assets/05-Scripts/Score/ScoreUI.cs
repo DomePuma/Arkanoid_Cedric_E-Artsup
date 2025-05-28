@@ -1,12 +1,15 @@
 using TMPro;
 using UnityEngine;
 
-public class ScoreUI : MonoBehaviour
+namespace ScoreObserverPattern
 {
-    [SerializeField] private TextMeshProUGUI _scoreText;
-
-    public void UpdateScoreUI(int score)
+    public class ScoreUI : MonoBehaviour
     {
-        _scoreText.text = $"ScoreObserver: {score}";
+        [SerializeField] private TextMeshProUGUI _scoreText;
+
+        public void UpdateScoreUI(int score)
+        {
+            _scoreText.text = $"ScoreObserver: {score}";
+        }
     }
 }

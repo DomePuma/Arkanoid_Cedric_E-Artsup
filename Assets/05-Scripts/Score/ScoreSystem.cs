@@ -1,22 +1,24 @@
-using ScoreObserverPattern;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class ScoreSystem : MonoBehaviour
+namespace ScoreObserverPattern
 {
-    [SerializeField] private ScoreData _scoreData;
-    [SerializeField] private UnityEvent<int> _onScoreChanged;
-
-    public void AddScore(int value)
+    public class ScoreSystem : MonoBehaviour
     {
-        int newScore = _scoreData.Score + value;
-        _scoreData.SetScore(newScore);
-        _onScoreChanged.Invoke(newScore);
-    }
+        [SerializeField] private ScoreData _scoreData;
+        [SerializeField] private UnityEvent<int> _onScoreChanged;
 
-    public void ResetScore()
-    {
-        _scoreData.SetScore(0);
-        _onScoreChanged.Invoke(0);
+        public void AddScore(int value)
+        {
+            int newScore = _scoreData.Score + value;
+            _scoreData.SetScore(newScore);
+            _onScoreChanged.Invoke(newScore);
+        }
+
+        public void ResetScore()
+        {
+            _scoreData.SetScore(0);
+            _onScoreChanged.Invoke(0);
+        }
     }
 }

@@ -1,24 +1,25 @@
 using UnityEngine;
-using ScoreObserverPattern;
-
-public class ScoreObserver : MonoBehaviour, IObserver
+namespace ScoreObserverPattern
 {
-    [SerializeField] private ObserverSubject _observerSubject;
-    [SerializeField] private ScoreSystem _scoreSystem;
-    [SerializeField] private int _scorePerBrick = 100;
-
-    public void OnNotify()
+    public class ScoreObserver : MonoBehaviour, IObserver
     {
-        _scoreSystem.AddScore(_scorePerBrick);
-    }
+        [SerializeField] private ObserverSubject _observerSubject;
+        [SerializeField] private ScoreSystem _scoreSystem;
+        [SerializeField] private int _scorePerBrick = 100;
 
-    private void OnEnable()
-    {
-        _observerSubject.AddObserver(this);
-    }
+        public void OnNotify()
+        {
+            _scoreSystem.AddScore(_scorePerBrick);
+        }
 
-    private void OnDisable()
-    {
-        _observerSubject.RemoveObserver(this);
+        private void OnEnable()
+        {
+            _observerSubject.AddObserver(this);
+        }
+
+        private void OnDisable()
+        {
+            _observerSubject.RemoveObserver(this);
+        }
     }
 }

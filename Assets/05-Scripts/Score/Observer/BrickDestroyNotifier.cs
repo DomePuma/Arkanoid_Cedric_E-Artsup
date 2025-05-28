@@ -1,17 +1,18 @@
-using ScoreObserverPattern;
-
-public class BrickDestroyNotifier : ObserverSubject
+namespace ScoreObserverPattern
 {
-    public static BrickDestroyNotifier Instance { get; private set; }
-
-    private void Awake()
+    public class BrickDestroyNotifier : ObserverSubject
     {
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
-    }
+        public static BrickDestroyNotifier Instance { get; private set; }
 
-    public void NotifyBrickDestroyed()
-    {
-        NotifyObservers();
+        private void Awake()
+        {
+            if (Instance == null) Instance = this;
+            else Destroy(gameObject);
+        }
+
+        public void NotifyBrickDestroyed()
+        {
+            NotifyObservers();
+        }
     }
 }
