@@ -1,0 +1,20 @@
+Liste des sons
+
+Collisions & interactions :
+- hit_brick
+- hit_wall
+- hit_paddle
+- brick_break
+- ball_launch
+- ball_lost
+
+Power-ups:
+- bonus_spawn
+- bonus_pickup
+- paddle_powerup
+- ball_powerup
+
+Evenements majeurs
+- level_start
+- level_complete
+- game_over
