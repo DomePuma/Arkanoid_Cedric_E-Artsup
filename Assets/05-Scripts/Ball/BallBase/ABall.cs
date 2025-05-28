@@ -5,27 +5,25 @@ namespace BrickBreaker.Ball.Base
     public abstract class ABall : MonoBehaviour
     {
         [SerializeField] protected float _speed;
-        [SerializeField] protected int _playerLayer;
-        
-        protected Rigidbody2D _rigidbody2D;
+        [SerializeField] protected string _playerTag;
 
-        private void Awake()
+        private Vector2 _currentDirection = Vector2.up;
+
+        private void FixedUpdate()
         {
-            _rigidbody2D = GetComponent<Rigidbody2D>();
-        }
-        private void Start()
-        {
-            _rigidbody2D.linearVelocity = Vector2.up * _speed;
+            gameObject.transform.Translate(_currentDirection * _speed * Time.deltaTime);
         }
 
         private void Hit(Collision2D collision)
         {
-            if (collision.gameObject.layer == _playerLayer) //faudra changer ça en le vrai Layer du joueur
+            if (collision.gameObject.tag == _playerTag)
             {
-                Debug.Log("");
-                Vector2 directionNormalized = new Vector2(HitRacketPart(transform.position, collision.transform.position, collision.collider.bounds.size), 1f).normalized;
-                _rigidbody2D.linearVelocity = directionNormalized * _speed;
+                _currentDirection = new Vector2(HitRacketPart(transform.position, collision.transform.position, collision.collider.bounds.size), 1f).normalized;
 
+            }
+            else
+            {
+                _currentDirection = Vector2.Reflect(_currentDirection, collision.contacts[0].normal);
             }
         }
         private float HitRacketPart(Vector2 ballPos, Vector2 racketPos, Vector2 racketWidth)

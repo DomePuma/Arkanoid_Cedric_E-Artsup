@@ -90,4 +90,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 4.55
-  _playerLayer: 4
+  _playerTag: Player
