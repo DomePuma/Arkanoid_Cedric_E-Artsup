@@ -1,23 +1,54 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PausedState : IGameState
 {
-    public void EnterState(GameState gameState)
+    private bool _canUnpause = false;
+    private GameObject _pauseCanvas;
+
+    public PausedState(GameObject pauseCanvas)
     {
-        Time.timeScale = 0f;
-        Debug.Log("�tat : Pause");
+        _pauseCanvas = pauseCanvas;
     }
 
-    public void UpdateState(GameState gameState)
+    public void EnterState(GameState gameState)
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) //En attendant
+        if (_pauseCanvas == null)
         {
-            gameState.SetState(gameState.BallLaunched);
+            Debug.LogError("PauseCanvas non assigné !");
+            return;
         }
+
+        Time.timeScale = 0f;
+        Debug.Log("État : Pause");
+
+        _pauseCanvas.SetActive(true);
+
+        _canUnpause = false;
+        gameState.StartCoroutine(AllowUnpauseNextFrame());
     }
+
+    public void UpdateState(GameState gameState) { }
 
     public void ExitState(GameState gameState)
     {
         Time.timeScale = 1f;
+
+        if (_pauseCanvas != null)
+        {
+            _pauseCanvas.SetActive(false);
+        }
+    }
+
+    public void OnClosePauseInput(GameState gameState)
+    {
+        if (!_canUnpause) return;
+
+        gameState.SetState(gameState.BallLaunched);
+    }
+
+    private System.Collections.IEnumerator AllowUnpauseNextFrame()
+    {
+        yield return new WaitForSecondsRealtime(0.1f);
+        _canUnpause = true;
     }
 }

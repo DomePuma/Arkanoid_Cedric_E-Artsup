@@ -17,8 +17,9 @@ public class BallLaunchedState : IGameState
 
     public void UpdateState(GameState gameState)
     {
-        // Vérifier les conditions du jeu (ex: victoire)
-        // Exemple : if (BrickCount == 0) gameState.SetState(gameState.LevelCleared);
+        // Vérifier les conditions du jeu (ex: victoire, défaite, pause)
+        // if (BrickCount == 0) gameState.SetState(gameState.LevelClearedState);
+        // if (Life == 0) gamestate.SetState(gameState.GameOverState);
     }
 
     public void ExitState(GameState gameState) { }
@@ -30,6 +31,6 @@ public class BallLaunchedState : IGameState
             _pauseCanvas.SetActive(true);
         }
 
-        gameState.SetState(gameState.Paused);
+        gameState.SetState(gameState.PausedState);
     }
 }

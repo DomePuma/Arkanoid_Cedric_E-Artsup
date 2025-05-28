@@ -10,10 +10,7 @@ public class GameOverState : IGameState
 
     public void UpdateState(GameState gameState)
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            // Restart
-        }
+        // Restart
     }
 
     public void ExitState(GameState gameState) { }
