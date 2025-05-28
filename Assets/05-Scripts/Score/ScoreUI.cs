@@ -9,7 +9,7 @@ namespace BrickBreaker.Score.UI
 
         public void UpdateScoreUI(int score)
         {
-            _scoreText.text = $"ScoreObserver: {score}";
+            _scoreText.text = $"Score: {score}";
         }
     }
 }

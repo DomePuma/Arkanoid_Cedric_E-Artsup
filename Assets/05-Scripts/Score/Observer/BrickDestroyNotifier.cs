@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace BrickBreaker.Score.Subject
 {
     public class BrickDestroyNotifier : ObserverSubject
@@ -10,6 +12,7 @@ namespace BrickBreaker.Score.Subject
             else Destroy(gameObject);
         }
 
+        [ContextMenu("Send Notification")]
         public void NotifyBrickDestroyed()
         {
             NotifyObservers();
