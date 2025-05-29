@@ -8,7 +8,8 @@ namespace BrickBreaker.Ball.Spawner
     {
         [SerializeField] private BallType _ballType;
         [SerializeField] private Transform _ballSpwanPoint;
-        void Start()
+
+        private void Start()
         {
             SpawnBall();
         }
