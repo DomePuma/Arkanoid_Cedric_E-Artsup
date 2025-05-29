@@ -1021,6 +1021,7 @@ MonoBehaviour:
   - {fileID: 2145919360}
   - {fileID: 1265652180}
   - {fileID: 1318808902}
+  _ballSpawner: {fileID: 251781290}
 --- !u!1 &1265652178
 GameObject:
   m_ObjectHideFlags: 0

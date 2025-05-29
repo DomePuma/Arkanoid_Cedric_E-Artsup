@@ -1,14 +1,16 @@
 using BrickBreaker.Ball.Base;
 using UnityEngine;
+using System;
 
 namespace BrickBreaker.Ball.Type
 {
     public class BallBase : ABall
     {
+        public static event Action OnBallDeath;
+
         public override void Death()
         {
-            // Notifie PlayerHealth de la perte d’une vie
-            FindFirstObjectByType<PlayerHealth>().LoseLife();
+            OnBallDeath?.Invoke();
 
             Destroy(gameObject);
         }
