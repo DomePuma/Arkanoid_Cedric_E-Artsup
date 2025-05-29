@@ -1,4 +1,5 @@
 using BrickBreaker.Ball.Base;
+using UnityEngine;
 
 namespace BrickBreaker.Ball.Type
 {
@@ -6,10 +7,10 @@ namespace BrickBreaker.Ball.Type
     {
         public override void Death()
         {
+            // Notifie PlayerHealth de la perte d’une vie
             FindFirstObjectByType<PlayerHealth>().LoseLife();
 
             Destroy(gameObject);
-            //Ici rajouter les fonctions pour regénérer une balle
         }
     }
 }
