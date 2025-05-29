@@ -6,6 +6,8 @@ namespace BrickBreaker.Ball.Type
     {
         public override void Death()
         {
+            FindFirstObjectByType<PlayerHealth>().LoseLife();
+
             Destroy(gameObject);
             //Ici rajouter les fonctions pour regénérer une balle
         }
