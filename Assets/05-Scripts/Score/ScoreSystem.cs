@@ -15,6 +15,7 @@ namespace BrickBreaker.Score
         private void Awake()
         {
             _scoreManager = new ScoreManager(_scoreData);
+            _scoreManager.ResetScore();
         }
 
         public void AddScore(int value)

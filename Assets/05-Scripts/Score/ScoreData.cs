@@ -5,18 +5,12 @@ namespace BrickBreaker.Score.Data
     [CreateAssetMenu(fileName = "ScoreData", menuName = "Scriptable Object/ScoreObserver Data")]
     public class ScoreData : ScriptableObject
     {
-        [SerializeField] private int _score;
+        [SerializeField] private int _score = 0;
 
-        public int Score => _score;
-
-        private void OnEnable()
+        public int Score
         {
-            _score = 0;
-        }
-
-        public void SetScore(int value)
-        {
-            _score = value;
+            get => _score;
+            set => _score = value;
         }
     }
 }
