@@ -17,13 +17,11 @@ namespace BrickBreaker.Score.Observer
         private void OnEnable()
         {
             _brickDestroyNotifier.AddObserver(this);
-            //BrickDestroyNotifier.Instance.AddObserver(this);
         }
 
         private void OnDisable()
         {
             _brickDestroyNotifier.RemoveObserver(this);
-            //BrickDestroyNotifier.Instance.RemoveObserver(this);
         }
     }
 }
