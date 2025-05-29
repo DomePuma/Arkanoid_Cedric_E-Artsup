@@ -1,3 +1,4 @@
+using BrickBreaker.Score.Subject;
 using UnityEngine;
 
 namespace BrickBreaker.Brick.Type
@@ -18,6 +19,7 @@ namespace BrickBreaker.Brick.Type
 
         protected virtual void OnDestroyBrick()
         {
+            BrickDestroyNotifier.Instance?.NotifyBrickDestroyed(); // Notify score
             Destroy(gameObject);
         }
     }
