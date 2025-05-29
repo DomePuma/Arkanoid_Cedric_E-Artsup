@@ -12,7 +12,7 @@ namespace BrickBreaker.Score.Subject
             else Destroy(gameObject);
         }
 
-        [ContextMenu("Send Notification")]
+        [ContextMenu("Add Score")]
         public void NotifyBrickDestroyed()
         {
             NotifyObservers();

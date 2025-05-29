@@ -7,12 +7,6 @@ namespace BrickBreaker.Brick.Type
     {
         [SerializeField] protected int _hitPoints = 1;
 
-        //Test de l'observer sans détruire les bricks parce que la balle n'est pas encore implémentée
-        private void Start()
-        {
-            BrickDestroyNotifier.Instance?.NotifyBrickDestroyed(); // Notify score
-        }
-
         public override void Hit()
         {
             _hitPoints--;

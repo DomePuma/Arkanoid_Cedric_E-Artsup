@@ -22,7 +22,7 @@ namespace BrickBreaker.Score.Subject
         {
             foreach (IObserver observer in _observers)
             {
-                Debug.Log("Notification sent");
+                //Debug.Log("Notification sent");
                 observer.OnNotify();
             }
         }

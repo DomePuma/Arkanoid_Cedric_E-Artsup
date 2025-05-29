@@ -9,6 +9,11 @@ namespace BrickBreaker.Score.Data
 
         public int Score => _score;
 
+        private void OnEnable()
+        {
+            _score = 0;
+        }
+
         public void SetScore(int value)
         {
             _score = value;
