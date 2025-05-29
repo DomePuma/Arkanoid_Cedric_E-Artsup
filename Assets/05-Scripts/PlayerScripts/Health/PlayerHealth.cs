@@ -4,65 +4,68 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerHealth : MonoBehaviour
+namespace BrickBreaker.Player.Health
 {
-    [SerializeField] private Image[] _heartImages;
-
-    private BallSpawner _ballSpawner;
-    private float _lostOpacity = 0.22f;
-    private int _currentLives;
-    private int _lostLives = 0;
-
-    public event Action OnGameOver;
-
-    private void OnEnable()
+    public class PlayerHealth : MonoBehaviour
     {
-        BallBase.OnBallDeath += LoseLife;
-    }
+        [SerializeField] private Image[] _heartImages;
 
-    private void OnDisable()
-    {
-        BallBase.OnBallDeath -= LoseLife;
-    }
+        private BallSpawner _ballSpawner;
+        private float _lostOpacity = 0.22f;
+        private int _currentLives;
+        private int _lostLives = 0;
 
-    private void Awake()
-    {
-        _ballSpawner = FindFirstObjectByType<BallSpawner>();
-    }
+        public event Action OnGameOver;
 
-    private void Start()
-    {
-        _currentLives = _heartImages.Length;
-
-        foreach (Image heart in _heartImages)
+        private void OnEnable()
         {
-            SetAlpha(heart, 1f);
+            BallBase.OnBallDeath += LoseLife;
         }
-    }
 
-    public void LoseLife()
-    {
-        if (_lostLives >= _heartImages.Length) return;
-
-        SetAlpha(_heartImages[_lostLives], _lostOpacity);
-        _lostLives++;
-        _currentLives--;
-
-        if (_currentLives > 0)
+        private void OnDisable()
         {
-            _ballSpawner.SpawnBall();
+            BallBase.OnBallDeath -= LoseLife;
         }
-        else
-        {
-            Debug.Log("Game Over, prévu dans GameState");
-            OnGameOver?.Invoke();
-        }
-    }
 
-    private void SetAlpha(Image image, float alpha)
-    {
-        Color color = image.color;
-        color.a = alpha;
-        image.color = color;
+        private void Awake()
+        {
+            _ballSpawner = FindFirstObjectByType<BallSpawner>();
+        }
+
+        private void Start()
+        {
+            _currentLives = _heartImages.Length;
+
+            foreach (Image heart in _heartImages)
+            {
+                SetAlpha(heart, 1f);
+            }
+        }
+
+        public void LoseLife()
+        {
+            if (_lostLives >= _heartImages.Length) return;
+
+            SetAlpha(_heartImages[_lostLives], _lostOpacity);
+            _lostLives++;
+            _currentLives--;
+
+            if (_currentLives > 0)
+            {
+                _ballSpawner.SpawnBall();
+            }
+            else
+            {
+                Debug.Log("Game Over, prévu dans GameState");
+                OnGameOver?.Invoke();
+            }
+        }
+
+        private void SetAlpha(Image image, float alpha)
+        {
+            Color color = image.color;
+            color.a = alpha;
+            image.color = color;
+        }
     }
 }
