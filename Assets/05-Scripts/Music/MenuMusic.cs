@@ -9,9 +9,9 @@ namespace BrickBreaker.Audio.Music
 
         void Start()
         {
-            if (AudioManager.Instance != null)
+            if (AudioSystem.Instance != null)
             {
-                AudioManager.Instance.PlayMusic(_menuMusic, true);
+                AudioSystem.Instance.PlayMusic(_menuMusic, true);
             }
         }
     }

@@ -5,9 +5,9 @@ using BrickBreaker.Audio.Music.Type;
 
 namespace BrickBreaker.Audio.Music
 {
-    public class AudioManager : MonoBehaviour
+    public class AudioSystem : MonoBehaviour
     {
-        public static AudioManager Instance { get; private set; }
+        public static AudioSystem Instance { get; private set; }
 
         [Header("Audio Source")]
         [SerializeField] private AudioSource _musicSource;
