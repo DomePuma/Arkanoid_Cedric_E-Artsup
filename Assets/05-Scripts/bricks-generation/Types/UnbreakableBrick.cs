@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace BrickBreaker.Brick.Type
 {
-    public class UnbreakableBrick : StandardBrick
+    public class UnbreakableBrick : ABrick
     {
         [SerializeField] private int _scoreOnDestroyed = 1000;
 
