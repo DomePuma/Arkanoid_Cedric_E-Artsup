@@ -1,29 +1,30 @@
 using System.Collections.Generic;
 using UnityEngine;
-using BrickBreaker.Score.Observer;
+using BrickBreaker.BrickDestroyed.Observer;
+using System;
 
-namespace BrickBreaker.Score.Subject
+namespace BrickBreaker.BrickDestroyed.Subject
 {
     public abstract class ObserverSubject : MonoBehaviour
     {
-        private List<IObserver> _observers = new List<IObserver>();
+        private List<IBrickDestroyedObserver> _observers = new List<IBrickDestroyedObserver>();
 
-        public void AddObserver(IObserver observer)
+        public void AddObserver(IBrickDestroyedObserver observer)
         {
             _observers.Add(observer);
         }
 
-        public void RemoveObserver(IObserver observer) 
+        public void RemoveObserver(IBrickDestroyedObserver observer) 
         { 
             _observers.Remove(observer); 
         }
 
-        protected void NotifyObservers()
+        protected void NotifyObservers(Vector3 brickPosition, int scoreOnBrickDestroyed)
         {
-            foreach (IObserver observer in _observers)
+            foreach (IBrickDestroyedObserver observer in _observers)
             {
                 //Debug.Log("Notification sent");
-                observer.OnNotify();
+                observer.OnNotify(brickPosition, scoreOnBrickDestroyed);
             }
         }
     }

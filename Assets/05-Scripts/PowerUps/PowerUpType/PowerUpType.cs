@@ -4,5 +4,6 @@ namespace BrickBreaker.PowerUp.Type
     {
         OneUp,
         MultiBall,
+        DestoyAnyBricksBall,
     }
 }

@@ -1,13 +1,13 @@
 using BrickBreaker.BrickDestroyed.Subject;
-using BrickBreaker.Score;
+using BrickBreaker.Spawning;
 using UnityEngine;
 
 namespace BrickBreaker.BrickDestroyed.Observer
 {
-    public class ScoreObserver : MonoBehaviour, IBrickDestroyedObserver
+    public class PowerUpObserver : MonoBehaviour, IBrickDestroyedObserver
     {
-        [SerializeField] private ScoreSystem _scoreSystem;
         [SerializeField] private ObserverSubject _brickDestroyNotifier;
+        [SerializeField] private PowerUpSpawner _powerUpSpawner;
 
         private void OnEnable()
         {
@@ -19,9 +19,9 @@ namespace BrickBreaker.BrickDestroyed.Observer
             _brickDestroyNotifier.RemoveObserver(this);
         }
 
-        public void OnNotify(Vector3 brickPosition, int score)
+        public void OnNotify(Vector3 brickPosition, int scoreOnBrickDestroyed)
         {
-            _scoreSystem.AddScore(score);
+            _powerUpSpawner.SpawnPowerUp(brickPosition);
         }
     }
 }

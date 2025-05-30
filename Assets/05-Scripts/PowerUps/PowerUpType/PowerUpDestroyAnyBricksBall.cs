@@ -3,13 +3,13 @@ using UnityEngine;
 
 namespace BrickBreaker.PowerUp.Base
 {
-    public class PowerUpMultiBall : APowerUp
+    public class PowerUpDestroyAnyBricksBall : APowerUp
     {
         public event Action<int> OnPowerUpClaimed;
 
         public override void Claim()
         {
-            
+
         }
     }
 }

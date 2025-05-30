@@ -1,4 +1,3 @@
-using BrickBreaker.Score.Subject;
 using UnityEngine;
 
 namespace BrickBreaker.Brick.Type
