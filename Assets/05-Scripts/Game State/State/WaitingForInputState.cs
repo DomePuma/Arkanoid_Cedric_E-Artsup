@@ -1,17 +1,20 @@
 using UnityEngine;
 
-public class WaitingForInputState : IGameState
+namespace BrickBreaker.GameStateSystem.State
 {
-    public void EnterState(GameState gameState)
+    public class WaitingForInputState : IGameState
     {
-        Debug.Log("État : Attente input joueur");
-    }
+        public void EnterState(GameState gameState)
+        {
+            Debug.Log("État : Attente input joueur");
+        }
 
-    public void UpdateState(GameState gameState)
-    {
-    }
+        public void UpdateState(GameState gameState)
+        {
+        }
 
-    public void ExitState(GameState gameState)
-    {
+        public void ExitState(GameState gameState)
+        {
+        }
     }
 }

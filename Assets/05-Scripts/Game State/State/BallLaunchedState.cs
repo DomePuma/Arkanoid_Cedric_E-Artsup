@@ -1,38 +1,41 @@
 ﻿using BrickBreaker.Ball.Spawner;
 using UnityEngine;
 
-public class BallLaunchedState : IGameState
+namespace BrickBreaker.GameStateSystem.State
 {
-    private GameObject _pauseCanvas;
-    private BallSpawner _ballSpawner;
-    private bool _hasSpawnedBall = false;
-
-    public BallLaunchedState(GameObject pauseCanvas, BallSpawner ballSpawner)
+    public class BallLaunchedState : IGameState
     {
-        _pauseCanvas = pauseCanvas;
-        _ballSpawner = ballSpawner;
-    }
+        private GameObject _pauseCanvas;
+        private BallSpawner _ballSpawner;
+        private bool _hasSpawnedBall = false;
 
-    public void EnterState(GameState gameState)
-    {
-        Debug.Log("État : Balle lancée");
-
-        _pauseCanvas?.SetActive(false);
-
-        if (!_hasSpawnedBall)
+        public BallLaunchedState(GameObject pauseCanvas, BallSpawner ballSpawner)
         {
-            _ballSpawner?.SpawnBall();
-            _hasSpawnedBall = true;
+            _pauseCanvas = pauseCanvas;
+            _ballSpawner = ballSpawner;
         }
-    }
 
-    public void UpdateState(GameState gameState) { }
+        public void EnterState(GameState gameState)
+        {
+            Debug.Log("État : Balle lancée");
 
-    public void ExitState(GameState gameState) { }
+            _pauseCanvas?.SetActive(false);
 
-    public void OnPauseInput(GameState gameState)
-    {
-        _pauseCanvas?.SetActive(true);
-        gameState.SetState(gameState.PausedState);
+            if (!_hasSpawnedBall)
+            {
+                _ballSpawner?.SpawnBall();
+                _hasSpawnedBall = true;
+            }
+        }
+
+        public void UpdateState(GameState gameState) { }
+
+        public void ExitState(GameState gameState) { }
+
+        public void OnPauseInput(GameState gameState)
+        {
+            _pauseCanvas?.SetActive(true);
+            gameState.SetState(gameState.PausedState);
+        }
     }
 }

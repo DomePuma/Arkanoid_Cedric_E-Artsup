@@ -1,6 +1,9 @@
-public interface IGameState
+namespace BrickBreaker.GameStateSystem
 {
-    void EnterState(GameState gameState);
-    void UpdateState(GameState gameState);
-    void ExitState(GameState gameState);
+    public interface IGameState
+    {
+        void EnterState(GameState gameState);
+        void UpdateState(GameState gameState);
+        void ExitState(GameState gameState);
+    }
 }

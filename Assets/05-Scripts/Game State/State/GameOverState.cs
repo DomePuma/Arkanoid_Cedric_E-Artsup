@@ -2,44 +2,50 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-public class GameOverState : IGameState
+namespace BrickBreaker.GameStateSystem.State
 {
-    private InputAction _inputAction;
-
-    public void EnterState(GameState gameState)
+    namespace BrickBreaker.GameStateSystem
     {
-        Debug.Log("État : Game Over");
-
-        gameState.UIInputMap.Enable();
-
-        gameState.GameOverCanvas?.SetActive(true);
-
-        _inputAction = gameState.UIInputMap.FindAction("UI");
-        if (_inputAction != null)
+        public class GameOverState : IGameState
         {
-            _inputAction.performed += OnRestart;
-            _inputAction.Enable();
-        }
-    }
+            private InputAction _inputAction;
 
-    private void OnRestart(InputAction.CallbackContext context)
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
+            public void EnterState(GameState gameState)
+            {
+                Debug.Log("État : Game Over");
 
-    public void UpdateState(GameState gameState) { }
+                gameState.UIInputMap.Enable();
 
-    public void ExitState(GameState gameState)
-    {
-        gameState.PlayerInputMap.Enable();
-        gameState.UIInputMap.Disable();
+                gameState.GameOverCanvas?.SetActive(true);
 
-        gameState.GameOverCanvas?.SetActive(false);
+                _inputAction = gameState.UIInputMap.FindAction("UI");
+                if (_inputAction != null)
+                {
+                    _inputAction.performed += OnRestart;
+                    _inputAction.Enable();
+                }
+            }
 
-        if (_inputAction != null)
-        {
-            _inputAction.performed -= OnRestart;
-            _inputAction.Disable();
+            private void OnRestart(InputAction.CallbackContext context)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
+
+            public void UpdateState(GameState gameState) { }
+
+            public void ExitState(GameState gameState)
+            {
+                gameState.PlayerInputMap.Enable();
+                gameState.UIInputMap.Disable();
+
+                gameState.GameOverCanvas?.SetActive(false);
+
+                if (_inputAction != null)
+                {
+                    _inputAction.performed -= OnRestart;
+                    _inputAction.Disable();
+                }
+            }
         }
     }
 }

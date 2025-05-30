@@ -1,50 +1,53 @@
 ﻿using UnityEngine;
 
-public class PausedState : IGameState
+namespace BrickBreaker.GameStateSystem.State
 {
-    private GameObject _pauseCanvas;
-    private bool _canUnpause = false;
-
-    public PausedState(GameObject pauseCanvas)
+    public class PausedState : IGameState
     {
-        _pauseCanvas = pauseCanvas;
-    }
+        private GameObject _pauseCanvas;
+        private bool _canUnpause = false;
 
-    public void EnterState(GameState gameState)
-    {
-        if (_pauseCanvas == null)
+        public PausedState(GameObject pauseCanvas)
         {
-            Debug.LogError("PauseCanvas non assigné !");
-            return;
+            _pauseCanvas = pauseCanvas;
         }
 
-        Time.timeScale = 0f;
-        Debug.Log("État : Pause");
+        public void EnterState(GameState gameState)
+        {
+            if (_pauseCanvas == null)
+            {
+                Debug.LogError("PauseCanvas non assigné !");
+                return;
+            }
 
-        _pauseCanvas.SetActive(true);
+            Time.timeScale = 0f;
+            Debug.Log("État : Pause");
 
-        _canUnpause = false;
-        gameState.StartCoroutine(AllowUnpauseNextFrame());
-    }
+            _pauseCanvas.SetActive(true);
 
-    public void UpdateState(GameState gameState) { }
+            _canUnpause = false;
+            gameState.StartCoroutine(AllowUnpauseNextFrame());
+        }
 
-    public void ExitState(GameState gameState)
-    {
-        Time.timeScale = 1f;
-        _pauseCanvas?.SetActive(false);
-    }
+        public void UpdateState(GameState gameState) { }
 
-    public void OnClosePauseInput(GameState gameState)
-    {
-        if (!_canUnpause) return;
+        public void ExitState(GameState gameState)
+        {
+            Time.timeScale = 1f;
+            _pauseCanvas?.SetActive(false);
+        }
 
-        gameState.SetState(gameState.BallLaunched);
-    }
+        public void OnClosePauseInput(GameState gameState)
+        {
+            if (!_canUnpause) return;
 
-    private System.Collections.IEnumerator AllowUnpauseNextFrame()
-    {
-        yield return new WaitForSecondsRealtime(0.1f);
-        _canUnpause = true;
+            gameState.SetState(gameState.BallLaunched);
+        }
+
+        private System.Collections.IEnumerator AllowUnpauseNextFrame()
+        {
+            yield return new WaitForSecondsRealtime(0.1f);
+            _canUnpause = true;
+        }
     }
 }
