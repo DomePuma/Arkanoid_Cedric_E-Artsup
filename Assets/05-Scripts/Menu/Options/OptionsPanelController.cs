@@ -1,3 +1,5 @@
+using BrickBreaker.GameStateSystem;
+using BrickBreaker.GameStateSystem.State;
 using UnityEngine;
 
 public class OptionsPanelController : MonoBehaviour

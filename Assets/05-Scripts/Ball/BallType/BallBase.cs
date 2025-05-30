@@ -1,4 +1,6 @@
 using BrickBreaker.Ball.Base;
+using BrickBreaker.GameStateSystem;
+using BrickBreaker.GameStateSystem.State;
 using System;
 
 namespace BrickBreaker.Ball.Type
