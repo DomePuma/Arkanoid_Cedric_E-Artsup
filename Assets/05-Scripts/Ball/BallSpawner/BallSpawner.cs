@@ -7,7 +7,7 @@ namespace BrickBreaker.Ball.Spawner
     public class BallSpawner : MonoBehaviour
     {
         [SerializeField] private BallType _ballType;
-        [SerializeField] private Transform _ballSpwanPoint;
+        [SerializeField] private Transform _ballSpawnPoint;
 
         private void Start()
         {
@@ -16,7 +16,7 @@ namespace BrickBreaker.Ball.Spawner
 
         public void SpawnBall()
         {
-            BallFactory.CreateBall(_ballType, _ballSpwanPoint.position);
+            BallFactory.CreateBall(_ballType, _ballSpawnPoint.position);
         }
     }
 }

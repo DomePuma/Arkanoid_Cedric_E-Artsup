@@ -1,5 +1,6 @@
 using UnityEngine;
 using BrickBreaker.Ball.Type;
+using BrickBreaker.Ball;
 
 namespace BrickBreaker.Ball.Factory
 {
@@ -16,18 +17,11 @@ namespace BrickBreaker.Ball.Factory
 
         public static void CreateBall(BallType type, Vector3 position)
         {
-            GameObject prefab;
-
-            switch (type)
+            GameObject prefab = type switch
             {
-                case BallType.Multi:
-                    prefab = _multiBallPrefab;
-                    break;
-                default :
-                    prefab = _baseBallPrefab;
-                    break;
-
-            }
+                BallType.Multi => _multiBallPrefab,
+                _ => _baseBallPrefab
+            };
 
             if (prefab == null)
             {
@@ -35,8 +29,9 @@ namespace BrickBreaker.Ball.Factory
                 return;
             }
 
-            Object.Instantiate(prefab, position, Quaternion.identity);
-            return;
+            GameObject newBall = Object.Instantiate(prefab, position, Quaternion.identity);
+
+            BallReference.RegisterBall(newBall.transform);
         }
     }
 }

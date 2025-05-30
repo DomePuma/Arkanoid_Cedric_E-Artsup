@@ -1,3 +1,5 @@
+using BrickBreaker.State.Player;
+using BrickBreaker.State;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,18 +10,21 @@ namespace PlayerCommand
         [SerializeField] private float _moveSpeed = 5f;
 
         private float _moveInput;
+        private PlayerStateMachine _stateMachine;
+
+        private void Awake()
+        {
+            _stateMachine = GetComponent<PlayerStateMachine>();
+        }
 
         private void Update()
         {
-            if (_moveInput < 0)
+            if (_stateMachine.CurrentState is PlayerBaseState || _stateMachine.CurrentState is PlayerGiantState)
             {
-                var moveCommand = new MoveCommand(transform, _moveSpeed, Vector3.left);
-                moveCommand.Execute();
-            }
-            else if (_moveInput > 0)
-            {
-                var moveCommand = new MoveCommand(transform, _moveSpeed, Vector3.right);
-                moveCommand.Execute();
+                if (_moveInput < 0)
+                    new MoveCommand(transform, _moveSpeed, Vector3.left).Execute();
+                else if (_moveInput > 0)
+                    new MoveCommand(transform, _moveSpeed, Vector3.right).Execute();
             }
         }
 
