@@ -5,9 +5,16 @@ namespace BrickBreaker.Score.Observer
 {
     public class ScoreObserver : MonoBehaviour, IObserver
     {
-        [SerializeField] private ScoreSystem _scoreSystem;
-        [SerializeField] private ObserverSubject _brickDestroyNotifier;
         [SerializeField] private int _scorePerBrick = 100;
+        
+        private ObserverSubject _brickDestroyNotifier;
+        private ScoreSystem _scoreSystem;
+
+        private void Awake()
+        {
+            _scoreSystem = GetComponent<ScoreSystem>();
+            _brickDestroyNotifier = FindFirstObjectByType<BrickDestroyNotifier>();
+        }
 
         public void OnNotify()
         {
