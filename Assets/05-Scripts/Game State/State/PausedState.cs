@@ -2,8 +2,8 @@
 
 public class PausedState : IGameState
 {
-    private bool _canUnpause = false;
     private GameObject _pauseCanvas;
+    private bool _canUnpause = false;
 
     public PausedState(GameObject pauseCanvas)
     {
@@ -32,11 +32,7 @@ public class PausedState : IGameState
     public void ExitState(GameState gameState)
     {
         Time.timeScale = 1f;
-
-        if (_pauseCanvas != null)
-        {
-            _pauseCanvas.SetActive(false);
-        }
+        _pauseCanvas?.SetActive(false);
     }
 
     public void OnClosePauseInput(GameState gameState)

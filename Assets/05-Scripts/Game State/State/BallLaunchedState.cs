@@ -1,36 +1,38 @@
+ï»¿using BrickBreaker.Ball.Spawner;
 using UnityEngine;
 
 public class BallLaunchedState : IGameState
 {
     private GameObject _pauseCanvas;
+    private BallSpawner _ballSpawner;
+    private bool _hasSpawnedBall = false;
+
+    public BallLaunchedState(GameObject pauseCanvas, BallSpawner ballSpawner)
+    {
+        _pauseCanvas = pauseCanvas;
+        _ballSpawner = ballSpawner;
+    }
 
     public void EnterState(GameState gameState)
     {
-        Debug.Log("État : Balle lancée");
+        Debug.Log("Ã‰tat : Balle lancÃ©e");
 
-        _pauseCanvas = GameObject.FindWithTag("PauseCanvas");
-        if (_pauseCanvas != null)
+        _pauseCanvas?.SetActive(false);
+
+        if (!_hasSpawnedBall)
         {
-            _pauseCanvas.SetActive(false);
+            _ballSpawner?.SpawnBall();
+            _hasSpawnedBall = true;
         }
     }
 
-    public void UpdateState(GameState gameState)
-    {
-        // Vérifier les conditions du jeu (ex: victoire, défaite, pause)
-        // if (BrickCount == 0) gameState.SetState(gameState.LevelClearedState);
-        // if (Life == 0) gamestate.SetState(gameState.GameOverState);
-    }
+    public void UpdateState(GameState gameState) { }
 
     public void ExitState(GameState gameState) { }
 
     public void OnPauseInput(GameState gameState)
     {
-        if (_pauseCanvas != null)
-        {
-            _pauseCanvas.SetActive(true);
-        }
-
+        _pauseCanvas?.SetActive(true);
         gameState.SetState(gameState.PausedState);
     }
 }

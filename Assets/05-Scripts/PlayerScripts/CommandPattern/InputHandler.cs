@@ -9,6 +9,10 @@ namespace PlayerCommand
 
         private float _moveInput;
         private GameState _gameState;
+        private bool _hasMoved = false;
+
+        // Event déclenché dès que le joueur bouge pour la première fois
+        public static event System.Action OnInitialMoveInput;
 
         private void Awake()
         {
@@ -17,7 +21,6 @@ namespace PlayerCommand
 
         private void Update()
         {
-            // Empêche le déplacement si le jeu est en pause ou en attente
             if (!(_gameState.CurrentState is BallLaunchedState)) return;
 
             if (_moveInput < 0)
@@ -35,6 +38,12 @@ namespace PlayerCommand
         public void OnMove(InputAction.CallbackContext context)
         {
             _moveInput = context.ReadValue<Vector2>().x;
+
+            if (!_hasMoved && Mathf.Abs(_moveInput) > 0.1f)
+            {
+                _hasMoved = true;
+                OnInitialMoveInput?.Invoke();
+            }
         }
     }
 }

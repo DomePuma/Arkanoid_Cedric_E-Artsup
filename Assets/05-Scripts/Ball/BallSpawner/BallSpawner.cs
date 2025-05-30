@@ -9,11 +9,6 @@ namespace BrickBreaker.Ball.Spawner
         [SerializeField] private BallType _ballType;
         [SerializeField] private Transform _ballSpwanPoint;
 
-        private void Start()
-        {
-            SpawnBall();
-        }
-
         public void SpawnBall()
         {
             BallFactory.CreateBall(_ballType, _ballSpwanPoint.position);
