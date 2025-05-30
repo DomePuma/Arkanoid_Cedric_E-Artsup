@@ -404,8 +404,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "J'ai impl\xE9ment\xE9 le menu options... en concept. Le code, lui, prend
-    encore sa pause caf\xE9."
+  m_text: "I\u2019ve implemented the options menu\u2026 conceptually. \nThe code,
+    however, is still on its coffee break."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

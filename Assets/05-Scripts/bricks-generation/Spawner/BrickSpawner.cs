@@ -1,9 +1,9 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using BrickBreaker.Brick;
 using BrickBreaker.Brick.Factory;
-using BrickBreaker.Brick;
+using BrickBreaker.Score.Subject;
 using BrickBreaker.Spawning.Layout;
-using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace BrickBreaker.Spawning
 {
@@ -70,6 +70,8 @@ namespace BrickBreaker.Spawning
             }
 
             // Instanciation des briques, avec la couleur selon la ligne (même index pour Standard et Bonus)
+            int destructibleBrickCount = 0;
+
             for (int row = 0; row < _rows; row++)
             {
                 int rowPrefabIndex = row % GetPrefabCountForType(BrickType.Standard);
@@ -78,19 +80,26 @@ namespace BrickBreaker.Spawning
                 {
                     BrickType typeToSpawn = layout[row, col];
 
-                    if (typeToSpawn == BrickType.Standard || typeToSpawn == BrickType.Unbreakable || typeToSpawn == BrickType.Bonus)
-                    {
-                        Vector3 position = new Vector3(
-                            _startOffset.x + col * _brickWidth,
-                            _startOffset.y - row * _brickHeight,
-                            0f
-                        );
+                    Vector3 position = new Vector3(
+                        _startOffset.x + col * _brickWidth,
+                        _startOffset.y - row * _brickHeight,
+                        0f
+                    );
 
-                        // Ici on donne toujours rowPrefabIndex pour garder la couleur de la ligne même pour les bonus
+                    if (typeToSpawn == BrickType.Standard || typeToSpawn == BrickType.Bonus)
+                    {
+                        destructibleBrickCount++;
+                        BrickFactory.CreateBrick(typeToSpawn, position, rowPrefabIndex);
+                    }
+                    else if (typeToSpawn == BrickType.Unbreakable)
+                    {
                         BrickFactory.CreateBrick(typeToSpawn, position, rowPrefabIndex);
                     }
                 }
             }
+
+            // Initialise le compteur dans le BrickDestroyNotifier
+            BrickDestroyNotifier.Instance?.SetTotalDestructibleBricks(destructibleBrickCount);
         }
 
         private int GetPrefabCountForType(BrickType type)

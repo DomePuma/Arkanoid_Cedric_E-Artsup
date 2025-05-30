@@ -1,5 +1,8 @@
-﻿using BrickBreaker.Ball.Spawner;
+﻿using BrickBreaker.Ball.Base;
+using BrickBreaker.Ball.Spawner;
 using BrickBreaker.Player.Health;
+using BrickBreaker.Score.Subject;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,6 +11,7 @@ public class GameState : MonoBehaviour
     [SerializeField] private InputActionAsset inputActionsAsset;
     [SerializeField] private GameObject _pauseCanvas;
     [SerializeField] private GameObject _gameOverCanvas;
+    [SerializeField] private GameObject _victoryCanvas;
 
     private IGameState _currentState;
     public IGameState CurrentState => _currentState;
@@ -16,8 +20,8 @@ public class GameState : MonoBehaviour
     private InputAction _closePausedAction;
 
     private BallSpawner _ballSpawner;
-
     private PlayerHealth _playerHealth;
+
     public PlayerHealth PlayerHealth => _playerHealth;
 
     public InputActionMap PlayerInputMap => inputActionsAsset.FindActionMap("Player", true);
@@ -25,6 +29,9 @@ public class GameState : MonoBehaviour
 
     public GameObject GameOverCanvas => _gameOverCanvas;
 
+    public bool CanSpawnBall => !(_currentState is LevelClearedState || _currentState is GameOverState);
+
+    public event Action<IGameState> OnStateChanged;
     public IGameState WaitingForInput { get; private set; }
     public IGameState BallLaunched { get; private set; }
     public IGameState PausedState { get; private set; }
@@ -40,7 +47,7 @@ public class GameState : MonoBehaviour
         BallLaunched = new BallLaunchedState(_pauseCanvas, _ballSpawner);
         PausedState = new PausedState(_pauseCanvas);
         GameOver = new GameOverState();
-        LevelCleared = new LevelClearedState();
+        LevelCleared = new LevelClearedState(_victoryCanvas);
 
         _pauseAction = PlayerInputMap.FindAction("Pause");
         _closePausedAction = UIInputMap.FindAction("ClosePaused");
@@ -70,8 +77,20 @@ public class GameState : MonoBehaviour
 
     private void OnEnable()
     {
-        // Abonnné à l’event du premier mouvement
         PlayerCommand.InputHandler.OnInitialMoveInput += HandleInitialMoveInput;
+
+        if (BrickDestroyNotifier.Instance == null)
+        {
+            BrickDestroyNotifier fallback = FindFirstObjectByType<BrickDestroyNotifier>();
+
+            if (fallback != null)
+            {
+                Debug.Log("Found fallback BrickDestroyNotifier in scene.");
+                BrickDestroyNotifier.Instance = fallback;
+
+                fallback.OnAllBricksDestroyed += HandleLevelCleared;
+            }
+        }
 
         _pauseAction?.Enable();
         _closePausedAction?.Enable();
@@ -83,6 +102,15 @@ public class GameState : MonoBehaviour
     private void OnDisable()
     {
         PlayerCommand.InputHandler.OnInitialMoveInput -= HandleInitialMoveInput;
+
+        if (BrickDestroyNotifier.Instance != null)
+        {
+            BrickDestroyNotifier.Instance.OnAllBricksDestroyed -= HandleLevelCleared;
+        }
+        else
+        {
+            Debug.LogWarning("BrickDestroyNotifier.Instance is null in GameState.Disable");
+        }
 
         _pauseAction?.Disable();
         _closePausedAction?.Disable();
@@ -99,7 +127,6 @@ public class GameState : MonoBehaviour
         }
     }
 
-
     private void Start()
     {
         SetState(WaitingForInput);
@@ -115,10 +142,31 @@ public class GameState : MonoBehaviour
         _currentState?.ExitState(this);
         _currentState = newState;
         _currentState?.EnterState(this);
+
+        OnStateChanged?.Invoke(newState);
+
+        if (_currentState is GameOverState || _currentState is LevelClearedState)
+        {
+            DestroyAllBalls();
+        }
+    }
+
+    private void DestroyAllBalls()
+    {
+        var balls = FindObjectsOfType<ABall>();
+        foreach (var ball in balls)
+        {
+            ball.Death();
+        }
     }
 
     private void HandleGameOver()
     {
         SetState(GameOver);
+    }
+
+    private void HandleLevelCleared()
+    {
+        SetState(LevelCleared);
     }
 }

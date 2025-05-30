@@ -15,6 +15,9 @@ namespace BrickBreaker.Player.Health
         private int _currentLives;
         private int _lostLives = 0;
 
+        // Flag pour bloquer la perte de vie après la fin du jeu
+        private bool _isGameOver = false;
+
         public event Action OnGameOver;
 
         private void OnEnable()
@@ -44,6 +47,8 @@ namespace BrickBreaker.Player.Health
 
         public void LoseLife()
         {
+            if (_isGameOver) return;
+
             if (_lostLives >= _heartImages.Length) return;
 
             SetAlpha(_heartImages[_lostLives], _lostOpacity);
@@ -56,6 +61,7 @@ namespace BrickBreaker.Player.Health
             }
             else
             {
+                _isGameOver = true;
                 Debug.Log("Game Over, prévu dans GameState");
                 OnGameOver?.Invoke();
             }

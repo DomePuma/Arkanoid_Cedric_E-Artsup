@@ -4,22 +4,21 @@ using UnityEngine.SceneManagement;
 
 public class GameOverState : IGameState
 {
-    private InputAction _restartAction;
+    private InputAction _inputAction;
 
     public void EnterState(GameState gameState)
     {
         Debug.Log("État : Game Over");
 
-        gameState.PlayerInputMap.Disable();
         gameState.UIInputMap.Enable();
 
         gameState.GameOverCanvas?.SetActive(true);
 
-        _restartAction = gameState.UIInputMap.FindAction("Restart");
-        if (_restartAction != null)
+        _inputAction = gameState.UIInputMap.FindAction("UI");
+        if (_inputAction != null)
         {
-            _restartAction.performed += OnRestart;
-            _restartAction.Enable();
+            _inputAction.performed += OnRestart;
+            _inputAction.Enable();
         }
     }
 
@@ -37,10 +36,10 @@ public class GameOverState : IGameState
 
         gameState.GameOverCanvas?.SetActive(false);
 
-        if (_restartAction != null)
+        if (_inputAction != null)
         {
-            _restartAction.performed -= OnRestart;
-            _restartAction.Disable();
+            _inputAction.performed -= OnRestart;
+            _inputAction.Disable();
         }
     }
 }
