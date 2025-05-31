@@ -1,5 +1,6 @@
-using BrickBreaker.Ball.Factory;
+﻿using BrickBreaker.Ball.Factory;
 using BrickBreaker.Ball.Type;
+using BrickBreaker.GameStateSystem;
 using UnityEngine;
 
 namespace BrickBreaker.Ball.Spawner
@@ -9,13 +10,17 @@ namespace BrickBreaker.Ball.Spawner
         [SerializeField] private BallType _ballType;
         [SerializeField] private Transform _ballSpwanPoint;
 
-        private void Start()
+        private GameState _gameState;
+
+        private void Awake()
         {
-            SpawnBall();
+            _gameState = FindFirstObjectByType<GameState>();
         }
 
         public void SpawnBall()
         {
+            if (_gameState != null && !_gameState.CanSpawnBall) return;
+
             BallFactory.CreateBall(_ballType, _ballSpwanPoint.position);
         }
     }
