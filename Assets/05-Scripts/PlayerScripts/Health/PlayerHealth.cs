@@ -1,5 +1,6 @@
 using BrickBreaker.Ball.Spawner;
 using BrickBreaker.Ball.Type;
+using BrickBreaker.BrickDestroyed.Subject;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,6 +21,7 @@ namespace BrickBreaker.Player.Health
 
         public event Action OnGameOver;
 
+        public static PlayerHealth Instance { get; private set; }
         private void OnEnable()
         {
             BallBase.OnBallDeath += LoseLife;
@@ -32,6 +34,9 @@ namespace BrickBreaker.Player.Health
 
         private void Awake()
         {
+            if (Instance == null) Instance = this;
+            else Destroy(gameObject);
+
             _ballSpawner = FindFirstObjectByType<BallSpawner>();
         }
 
@@ -64,6 +69,21 @@ namespace BrickBreaker.Player.Health
                 _isGameOver = true;
                 Debug.Log("Game Over, prévu dans GameState");
                 OnGameOver?.Invoke();
+            }
+        }
+
+        public void AddLife()
+        {
+            if(_currentLives <= _heartImages.Length)
+            {
+                //Il faudra modifier ça, je ne sais pas comment bien le faire ^^'
+                SetAlpha(_heartImages[_lostLives], 1f);
+                _lostLives--;
+                _currentLives++;
+            }
+            else
+            {
+                Debug.Log("Max Lives");
             }
         }
 

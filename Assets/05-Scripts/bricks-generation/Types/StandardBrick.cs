@@ -1,4 +1,4 @@
-using BrickBreaker.Score.Subject;
+using BrickBreaker.BrickDestroyed.Subject;
 using UnityEngine;
 
 namespace BrickBreaker.Brick.Type
@@ -6,6 +6,7 @@ namespace BrickBreaker.Brick.Type
     public class StandardBrick : ABrick
     {
         [SerializeField] private int _hitPoints = 1;
+        [SerializeField] private int _scoreOnDestroyed = 100;
 
         public override void Hit()
         {
@@ -19,7 +20,7 @@ namespace BrickBreaker.Brick.Type
 
         protected virtual void OnDestroyBrick()
         {
-            BrickDestroyNotifier.Instance?.NotifyBrickDestroyed(); // Notify score
+            BrickDestroyNotifier.Instance?.NotifyBrickDestroyed(transform.position, _scoreOnDestroyed);
             Destroy(gameObject);
         }
     }

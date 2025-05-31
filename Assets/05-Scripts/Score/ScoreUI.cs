@@ -19,6 +19,11 @@ namespace BrickBreaker.Score.UI
             _scoreSystem.OnScoreChanged += UpdateScoreUI;
         }
 
+        private void OnDisable()
+        {
+            _scoreSystem.OnScoreChanged -= UpdateScoreUI;
+        }
+
         public void UpdateScoreUI(int score)
         {
             _scoreText.text = $"{score}";
