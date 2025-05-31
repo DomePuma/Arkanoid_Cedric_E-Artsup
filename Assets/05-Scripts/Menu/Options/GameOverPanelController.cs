@@ -2,7 +2,7 @@ using BrickBreaker.GameStateSystem;
 using BrickBreaker.GameStateSystem.State;
 using UnityEngine;
 
-public class OptionsPanelController : MonoBehaviour
+public class GameOverPanelController : MonoBehaviour
 {
     private GameState _gameState;
 
@@ -11,7 +11,7 @@ public class OptionsPanelController : MonoBehaviour
         _gameState = FindFirstObjectByType<GameState>();
     }
 
-    public void CloseOptions()
+    public void OpenGameOverPanel()
     {
         gameObject.SetActive(false);
 
