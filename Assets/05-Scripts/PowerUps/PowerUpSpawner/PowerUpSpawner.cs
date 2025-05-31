@@ -1,30 +1,70 @@
 using System.Collections.Generic;
 using UnityEngine;
+using BrickBreaker.Spawning.Strategies;
+using BrickBreaker.PowerUp.Data;
+using BrickBreaker.Spawning.PowerUp.Strategy;
 
-namespace BrickBreaker.Spawning
+namespace BrickBreaker.Spawning.PowerUp
 {
     public class PowerUpSpawner : MonoBehaviour
     {
-        [SerializeField] private List<GameObject> _powerUpList = new List<GameObject>();
+        [SerializeField] private List<PowerUpData> _powerUpDataList = new List<PowerUpData>();
+        private IPowerUpSpawnStrategy _spawnStrategy;
+
+        private void Awake()
+        {
+            _spawnStrategy = new BasicRandomSpawnStrategy();
+        }
+
         public void SpawnPowerUp(Vector3 spawnPosition)
         {
-            if (Random.Range(0, 2) == 0 && _powerUpList.Count > 0)
+            if (_powerUpDataList.Count <= 0)
             {
-                int randomIndex = Random.Range(0, _powerUpList.Count);
-                GameObject randomPowerUp = _powerUpList[randomIndex];
+                Debug.LogError("No PowerUps configured in PowerUpSpawner.");
+                return;
+            }
 
-                Instantiate(randomPowerUp, spawnPosition, Quaternion.identity);
-                Debug.Log("PowerUp Spwaned");
-            }
-            else if(Random.Range(0, 10) != 0 && _powerUpList.Count > 0)
+            if (_spawnStrategy.ShouldSpawnPowerUp())
             {
-                Debug.LogWarning("No PowerUp Spawned 1/10 chances tho :/");
+                PowerUpData chosen = GetRandomWeightedPowerUp();
+                if (chosen != null)
+                {
+                    Instantiate(chosen.prefab, spawnPosition, Quaternion.identity);
+                    Debug.Log($"PowerUp Spawned: {chosen.powerUpType}");
+                }
             }
-            else if( _powerUpList.Count <= 0 )
+            else
             {
-                Debug.LogError("No Power Ups In Power Up Spawner");
+                Debug.Log("No PowerUp Spawned (strategy said no)");
             }
         }
 
+        private PowerUpData GetRandomWeightedPowerUp()
+        {
+            float totalWeight = 0f;
+            foreach (var data in _powerUpDataList)
+            {
+                totalWeight += data.spawnChance;
+            }
+
+            float randomValue = Random.Range(0f, totalWeight);
+            float currentSum = 0f;
+
+            foreach (var data in _powerUpDataList)
+            {
+                currentSum += data.spawnChance;
+                if (randomValue <= currentSum)
+                {
+                    return data;
+                }
+            }
+
+            return null; // fallback, should not happen
+        }
+
+        public void SetSpawnStrategy(IPowerUpSpawnStrategy strategy)
+        {
+            _spawnStrategy = strategy;
+        }
     }
 }

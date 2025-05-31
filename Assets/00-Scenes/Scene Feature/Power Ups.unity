@@ -1473,9 +1473,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef527fd986304dc4f98ade2bfd171fa5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _powerUpList:
-  - {fileID: 4827748009902820048, guid: e5efb0a7083d36448a8f184bd9d81923, type: 3}
-  - {fileID: 3257692501978696723, guid: a443fd2ff429edc4b88465790a61b240, type: 3}
+  _powerUpDataList:
+  - {fileID: 11400000, guid: 852f58e9a314bb346a2b18cc655e3f64, type: 2}
+  - {fileID: 11400000, guid: 82b4a7905b9f40d4ba58b75f32a60e5e, type: 2}
+  - {fileID: 11400000, guid: 7d7d5cdc17d7bd648b72c3f40f0762ad, type: 2}
 --- !u!4 &1431840767
 Transform:
   m_ObjectHideFlags: 0

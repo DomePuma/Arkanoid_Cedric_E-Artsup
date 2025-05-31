@@ -1,5 +1,5 @@
 using BrickBreaker.BrickDestroyed.Subject;
-using BrickBreaker.Spawning;
+using BrickBreaker.Spawning.PowerUp;
 using UnityEngine;
 
 namespace BrickBreaker.BrickDestroyed.Observer

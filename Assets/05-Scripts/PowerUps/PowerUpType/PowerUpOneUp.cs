@@ -7,12 +7,12 @@ namespace BrickBreaker.PowerUp.Base
 
         private void Start()
         {
-            _playerHealth = GetComponent<PlayerHealth>();
+            _playerHealth = FindFirstObjectByType<PlayerHealth>();
         }
 
         public override void Claim()
         {
-            PlayerHealth.Instance?.AddLife();
+            _playerHealth.AddLife();
         }
     }
 }
