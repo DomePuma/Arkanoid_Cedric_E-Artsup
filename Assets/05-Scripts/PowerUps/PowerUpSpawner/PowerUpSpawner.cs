@@ -1,8 +1,8 @@
-using System.Collections.Generic;
-using UnityEngine;
-using BrickBreaker.Spawning.Strategies;
 using BrickBreaker.PowerUp.Data;
 using BrickBreaker.Spawning.PowerUp.Strategy;
+using BrickBreaker.Spawning.Strategies;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace BrickBreaker.Spawning.PowerUp
 {

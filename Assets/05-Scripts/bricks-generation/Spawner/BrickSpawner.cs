@@ -1,6 +1,6 @@
 ﻿using BrickBreaker.Brick;
 using BrickBreaker.Brick.Factory;
-using BrickBreaker.Score.Subject;
+using BrickBreaker.BrickDestroyed.Subject;
 using BrickBreaker.Spawning.Layout;
 using System.Collections.Generic;
 using UnityEngine;

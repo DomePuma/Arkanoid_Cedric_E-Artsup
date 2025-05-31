@@ -1,8 +1,8 @@
 ﻿using BrickBreaker.Ball.Base;
 using BrickBreaker.Ball.Spawner;
+using BrickBreaker.BrickDestroyed.Subject;
 using BrickBreaker.GameStateSystem.State;
 using BrickBreaker.Player.Health;
-using BrickBreaker.Score.Subject;
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;

@@ -1,9 +1,10 @@
-using BrickBreaker.Score.Subject;
+using BrickBreaker.BrickDestroyed.Observer;
+using BrickBreaker.BrickDestroyed.Subject;
 using UnityEngine;
 
 namespace BrickBreaker.Score.Observer
 {
-    public class ScoreObserver : MonoBehaviour, IObserver
+    public class ScoreObserver : MonoBehaviour, IBrickDestroyedObserver
     {
         [SerializeField] private int _scorePerBrick = 100;
         
@@ -16,9 +17,9 @@ namespace BrickBreaker.Score.Observer
             _brickDestroyNotifier = FindFirstObjectByType<BrickDestroyNotifier>();
         }
 
-        public void OnNotify()
+        public void OnNotify(Vector3 brickPosition, int score)
         {
-            _scoreSystem.AddScore(_scorePerBrick);
+            _scoreSystem.AddScore(score);
         }
 
         private void OnEnable()
