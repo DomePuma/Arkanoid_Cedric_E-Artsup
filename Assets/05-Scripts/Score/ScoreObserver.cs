@@ -6,8 +6,6 @@ namespace BrickBreaker.Score.Observer
 {
     public class ScoreObserver : MonoBehaviour, IBrickDestroyedObserver
     {
-        [SerializeField] private int _scorePerBrick = 100;
-        
         private ObserverSubject _brickDestroyNotifier;
         private ScoreSystem _scoreSystem;
 
