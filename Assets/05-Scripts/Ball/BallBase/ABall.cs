@@ -27,6 +27,13 @@ namespace BrickBreaker.Ball.Base
             Move();
             HandleScreenBounce();
             DetectCollisions();
+
+            // S'assure que la direction ne soit jamais trop horizontale
+            if (Mathf.Abs(_direction.y) < 0.3f)
+            {
+                _direction.y = 0.3f * Mathf.Sign(_direction.y == 0 ? 1 : _direction.y);
+                _direction = _direction.normalized;
+            }
         }
 
         private void Move()
@@ -41,6 +48,13 @@ namespace BrickBreaker.Ball.Base
             if (pos.x <= ScreenBoundsSystem.MinX || pos.x >= ScreenBoundsSystem.MaxX)
             {
                 _direction.x *= -1;
+
+                if (Mathf.Abs(_direction.y) < 0.3f)
+                {
+                    _direction.y = 0.3f * Mathf.Sign(_direction.y == 0 ? 1 : _direction.y);
+                }
+
+                _direction = _direction.normalized;
                 pos.x = Mathf.Clamp(pos.x, ScreenBoundsSystem.MinX, ScreenBoundsSystem.MaxX);
             }
 

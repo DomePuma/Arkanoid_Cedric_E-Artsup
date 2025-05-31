@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: ScreenBoundsData
   m_EditorClassIdentifier: 
   minX: -3.75
-  maxX: 3.5
+  maxX: 3.37
   minY: -5
   maxY: 4.5
