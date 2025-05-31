@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51375ec58d1699e48b2b20def302e161, type: 3}
   m_Name: ScreenBoundsData
   m_EditorClassIdentifier: 
-  minX: -3.75
-  maxX: 3.37
+  minX: -4
+  maxX: 3.679
   minY: -5
   maxY: 4.5
