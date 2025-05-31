@@ -156,7 +156,7 @@ namespace BrickBreaker.GameStateSystem
 
         private void DestroyAllBalls()
         {
-            var balls = FindObjectsOfType<ABall>();
+            var balls = ABall.AllBalls;
             foreach (var ball in balls)
             {
                 ball.Death();

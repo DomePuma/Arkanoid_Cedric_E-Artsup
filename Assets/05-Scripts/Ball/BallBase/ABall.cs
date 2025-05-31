@@ -1,5 +1,6 @@
 using BrickBreaker.Brick;
 using BrickBreaker.Utils;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace BrickBreaker.Ball.Base
@@ -14,6 +15,12 @@ namespace BrickBreaker.Ball.Base
         [SerializeField] private float _detectionRadius = 0.1f;
 
         protected Vector2 _direction = Vector2.up;
+
+        private static readonly List<ABall> _allBalls = new List<ABall>();
+        public static IReadOnlyList<ABall> AllBalls => _allBalls;
+
+        private void OnEnable() => _allBalls.Add(this);
+        private void OnDisable() => _allBalls.Remove(this);
 
         private void Update()
         {
