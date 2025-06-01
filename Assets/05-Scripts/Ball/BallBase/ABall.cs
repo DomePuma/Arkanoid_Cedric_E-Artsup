@@ -27,6 +27,13 @@ namespace BrickBreaker.Ball.Base
             Move();
             HandleScreenBounce();
             DetectCollisions();
+
+            // S'assure que la direction ne soit jamais trop horizontale
+            if (Mathf.Abs(_direction.y) < 0.3f)
+            {
+                _direction.y = 0.3f * Mathf.Sign(_direction.y == 0 ? 1 : _direction.y);
+                _direction = _direction.normalized;
+            }
         }
 
         private void Move()
@@ -41,6 +48,13 @@ namespace BrickBreaker.Ball.Base
             if (pos.x <= ScreenBoundsSystem.MinX || pos.x >= ScreenBoundsSystem.MaxX)
             {
                 _direction.x *= -1;
+
+                if (Mathf.Abs(_direction.y) < 0.3f)
+                {
+                    _direction.y = 0.3f * Mathf.Sign(_direction.y == 0 ? 1 : _direction.y);
+                }
+
+                _direction = _direction.normalized;
                 pos.x = Mathf.Clamp(pos.x, ScreenBoundsSystem.MinX, ScreenBoundsSystem.MaxX);
             }
 
@@ -63,25 +77,65 @@ namespace BrickBreaker.Ball.Base
         {
             Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, _detectionRadius, _collisionMask);
 
+            Vector2? dominantNormal = null;
+            float maxDot = -1f;
+            bool brickHit = false;
+
             foreach (Collider2D hit in hits)
             {
                 if (hit.CompareTag(_playerTag))
                 {
                     ReflectFromPaddle(hit);
+                    return;
                 }
-                else if (hit.CompareTag("Brick"))
+            }
+
+            foreach (Collider2D hit in hits)
+            {
+                if (hit.CompareTag("Brick"))
                 {
                     ABrick brick = hit.GetComponent<ABrick>();
-
                     if (brick != null)
                     {
                         brick.Hit();
-                        ReflectFromObject(hit);
+                        brickHit = true;
+
+                        // Déterminer la meilleure direction pour rebondir
+                        Vector2 toBall = ((Vector2)transform.position - (Vector2)hit.transform.position).normalized;
+                        Vector2[] normals = { Vector2.up, Vector2.down, Vector2.left, Vector2.right };
+
+                        foreach (Vector2 normal in normals)
+                        {
+                            float dot = Vector2.Dot(_direction, normal);
+                            if (dot > maxDot)
+                            {
+                                maxDot = dot;
+                                dominantNormal = normal;
+                            }
+                        }
                     }
                 }
                 else if (hit.CompareTag("Wall"))
                 {
                     ReflectFromObject(hit);
+                    return;
+                }
+            }
+
+            // Après avoir géré toutes les briques touchées
+            if (brickHit && dominantNormal.HasValue)
+            {
+                _direction = Vector2.Reflect(_direction, dominantNormal.Value).normalized;
+
+                float noise = 0.05f;
+                _direction += new Vector2(Random.Range(-noise, noise), Random.Range(-noise, noise));
+                _direction.Normalize();
+
+                // Évite les directions trop horizontales
+                if (Mathf.Abs(_direction.y) < 0.3f)
+                {
+                    _direction.y = 0.3f * Mathf.Sign(_direction.y == 0 ? 1 : _direction.y);
+                    _direction.Normalize();
                 }
             }
         }
@@ -108,16 +162,13 @@ namespace BrickBreaker.Ball.Base
 
             if (dx > dy)
             {
-                // Rebond horizontal
                 normal = new Vector2(Mathf.Sign(contactDirection.x), 0);
             }
             else
             {
-                // Rebond vertical
                 normal = new Vector2(0, Mathf.Sign(contactDirection.y));
             }
 
-            // Réflexion de base
             _direction = Vector2.Reflect(_direction, normal).normalized;
 
             /* Ajoute une petite variation aléatoire à la direction
